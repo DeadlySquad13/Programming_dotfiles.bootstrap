@@ -1,3 +1,4 @@
-- name: Install ripgrep-all
+- name: Install ripgrep-all (on Windows)
   community.windows.win_scoop:
     name: rga
+  when: '"Windows" in ansible_distribution'
