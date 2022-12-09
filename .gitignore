@@ -1,5 +1,6 @@
 *.local
 dotfiles.retry
+*.xlsx
 # Secrets
 .vault_pass
 .vault_pass.py

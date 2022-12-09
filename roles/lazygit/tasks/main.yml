@@ -1,0 +1,10 @@
+- name: Install lazygit
+  ansible.builtin.package:
+    name: lazygit
+    state: present
+  when: '"Windows" not in ansible_distribution'
+
+- name: Install lazygit (on Windows)
+  community.windows.win_scoop:
+    name: lazygit
+  when: '"Windows" in ansible_distribution'
