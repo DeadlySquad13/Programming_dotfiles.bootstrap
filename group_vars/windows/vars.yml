@@ -1,0 +1,8 @@
+---
+ansible_user: ds13
+ansible_password: "{{ vault_windows_ds13_password }}"
+ansible_port: 5986
+ansible_connection: winrm
+ansible_winrm_transport: basic
+ansible_winrm_server_cert_validation: ignore
+...

@@ -1,0 +1,3 @@
+- name: Install ripgrep-all
+  community.windows.win_scoop:
+    name: rga

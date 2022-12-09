@@ -1,0 +1,7 @@
+- name: Test on windows.
+  hosts: windows
+  tasks:
+    - name: Install ripgrep-all
+      community.windows.win_scoop:
+        name: rga
+

@@ -1,0 +1,5 @@
+*.local
+dotfiles.retry
+# Secrets
+.vault_pass
+.vault_pass.py

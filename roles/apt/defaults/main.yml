@@ -1,0 +1,37 @@
+package_upgrade: yes
+packages:
+  - ansible
+  - ripgrep
+  - fzf
+  - htop
+  # - build-essential
+  # - curl
+  # - docker-compose
+  # - docker.io
+  # - jq
+  # - libbz2-dev
+  # - libffi-dev
+  # - libffi-dev
+  # - liblzma-dev
+  # - liblzma-dev
+  # - libncurses5-dev
+  # - libreadline-dev
+  # - libsqlite3-dev
+  # - libssl-dev
+  # - llvm
+  # - make
+  # - python-openssl
+  # - tk-dev
+  # - wget
+  # - xz-utils
+  # - zlib1g-dev
+
+  # GUI
+  # - chromium-browser
+  # - gnome-boxes
+  # - gnome-icon-theme
+  # - gnome-keyring
+  # - i3lock
+
+# remove_packages:
+#   - gnome-shell-extension-ubuntu-dock
