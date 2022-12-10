@@ -1,0 +1,34 @@
+- name: Install NeoVim (on Windows)
+  community.windows.win_scoop:
+    name: neovim-nightly
+  when: '"Windows" in ansible_distribution'
+
+- name: Symlink NeoVim configuration (on Windows)
+  vars:
+    force: true
+  ansible.windows.win_powershell:
+      script: |
+        [CmdletBinding()]
+        param (
+            [String]
+            $Path,
+
+            [Switch]
+            $Force
+        )
+
+        New-Item -ItemType SymbolicLink -Value "E:/Configs/Programming_dotfiles.bootstrap/roles/neovim/files" -Path "$Env:LocalAppData/nvim" -Force:$Force
+      parameters:
+        Force: "{{ force }}"
+  when: '"Windows" in ansible_distribution'
+
+
+# - name: Symlink NeoVim configuration
+#   vars:
+#     mylink: "C:/Users/ds13/AppData/Local/nvim-test"
+#     mysrc: "./files"
+#   ansible.builtin.file:
+#     src: "{{ mysrc }}"
+#     dest: "{{ mylink }}"
+#     state: link
+#   

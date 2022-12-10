@@ -1,5 +1,6 @@
 *.local
 dotfiles.retry
+KnowledgeBase__*
 *.xlsx
 # Secrets
 .vault_pass
