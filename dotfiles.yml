@@ -1,11 +1,21 @@
 - name: Set up local workstation
   hosts: windows
   roles:
-      tags:
-    # - Git TUI.
+      # Git
+    # - role: git
+    #   tags:
+    #     - git
+      # - Git TUI.
     - role: lazygit
       tags:
         - git
+
+      # Pdf
+      # - Pdf Reader
+    - role: sumatrapdf
+      tags:
+        - pdf
+
     # - role: snap
     #   tags:
     #     - snap

@@ -1,0 +1,10 @@
+- name: Install sumatrapdf
+  ansible.builtin.package:
+    name: sumatrapdf
+    state: present
+  when: '"Windows" not in ansible_distribution'
+
+- name: Install sumatrapdf (on Windows)
+  community.windows.win_scoop:
+    name: sumatrapdf
+  when: '"Windows" in ansible_distribution'
