@@ -3,15 +3,22 @@ set -e
 
 tags="$1"
 
-if [ -z $tags ]; then
-  tags="all"
+if [ -z "$tags" ]; then
+  echo "Do you wish to install all tags? It will override current configurations."
+  select yn in "Yes" "No" "Cancel"; do
+      case $yn in
+          Yes ) tags="all"; break;;
+          No ) read -p "Enter tags: " tags; break;;
+          Cancel ) exit;;
+      esac
+  done
 fi
 
 if ! [ -x "$(command -v ansible)" ]; then
   sudo apt install ansible -v 2.7.4
 fi
 
-ansible-playbook ./dotfiles.yml --tags $tags
+ansible-playbook ./dotfiles.yml --tags "$tags"
 
 if command -v terminal-notifier 1>/dev/null 2>&1; then
   terminal-notifier -title "dotfiles: Bootstrap complete" -message "Successfully set up dev environment."

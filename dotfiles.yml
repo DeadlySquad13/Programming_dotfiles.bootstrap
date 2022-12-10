@@ -9,18 +9,19 @@
     - role: lazygit
       tags:
         - git
+        - lazygit
 
       # Text Editor.
     - role: neovim
       tags:
         - neovim
 
-
       # Pdf
       # - Pdf Reader
     - role: sumatrapdf
       tags:
         - pdf
+        - sumatrapdf
 
     # - role: snap
     #   tags:
