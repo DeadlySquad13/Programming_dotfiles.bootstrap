@@ -23,6 +23,14 @@
         - pdf
         - sumatrapdf
 
+      # Backend Development.
+      # - Golang
+    - role: golang
+      tags:
+        - golang
+        - backend
+          development
+
     # - role: snap
     #   tags:
     #     - snap
