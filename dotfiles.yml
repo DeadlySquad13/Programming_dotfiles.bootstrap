@@ -10,13 +10,14 @@
       tags:
         - git
         - lazygit
+          development
 
       # Text Editor.
     - role: neovim
       tags:
         - neovim
 
-      # Pdf
+      # Pdf.
       # - Pdf Reader
     - role: sumatrapdf
       tags:
