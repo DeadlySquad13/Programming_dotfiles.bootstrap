@@ -1,0 +1,11 @@
+- name: Install bugwarrior.
+  ansible.builtin.pip:
+    name: bugwarrior
+
+- name: Install jira core module for bugwarrior.
+  ansible.builtin.pip:
+    name: jira
+
+- name: Install jira module for bugwarrior.
+  ansible.builtin.pip:
+    name: "bugwarrior[jira]"

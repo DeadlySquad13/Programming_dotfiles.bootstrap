@@ -5,12 +5,21 @@
     # - role: git
     #   tags:
     #     - git
+
+      # Productivity.
+    - role: bugwarrior
+      tags:
+        - bugwarrior
+        - jira # TODO: Modularize it somehow?
+        - productivity
+      when: '"Windows" not in ansible_distribution' # Taskwarrior not supported on windows.
+
       # - Git TUI.
     - role: lazygit
       tags:
         - git
         - lazygit
-          development
+        - development
 
       # Text Editor.
     - role: neovim
