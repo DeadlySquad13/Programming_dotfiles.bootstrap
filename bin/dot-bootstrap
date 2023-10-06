@@ -4,22 +4,29 @@ set -e
 tags="$1"
 
 if [ -z "$tags" ]; then
-  echo "Do you wish to install all tags? It will override current configurations."
-  select yn in "Yes" "No" "Cancel"; do
-      case $yn in
-          Yes ) tags="all"; break;;
-          No ) read -p "Enter tags: " tags; break;;
-          Cancel ) exit;;
-      esac
-  done
+    echo "Do you wish to install all tags? It will override current configurations."
+    select yn in "Yes" "No" "Cancel"; do
+        case $yn in
+            Yes ) tags="all"; break;;
+            No ) read -p "Enter tags: " tags; break;;
+            Cancel ) exit;;
+        esac
+    done
 fi
 
 if ! [ -x "$(command -v ansible)" ]; then
-  sudo apt install ansible -v 2.7.4
+    if [ -x "$(command -v apt)" ]; then
+        sudo apt install ansible -v 2.7.4
+    elif [ -x "$(command -v pacman)" ]; then
+        sudo pacman -S ansible
+    else
+        echo "Error: couldn't find package manager to install ansible!";
+        exit 1
+    fi
 fi
 
 ansible-playbook ./dotfiles.yml --tags "$tags"
 
 if command -v terminal-notifier 1>/dev/null 2>&1; then
-  terminal-notifier -title "dotfiles: Bootstrap complete" -message "Successfully set up dev environment."
+    terminal-notifier -title "dotfiles: Bootstrap complete" -message "Successfully set up dev environment."
 fi
