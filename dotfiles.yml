@@ -6,6 +6,11 @@
     #   tags:
     #     - git
 
+    - role: powershell
+      tags:
+        - powershell
+        - development
+
       # Productivity.
     - role: bugwarrior
       tags:
@@ -33,13 +38,21 @@
         - pdf
         - sumatrapdf
 
-      # Backend Development.
+      # Development.
       # - Golang
     - role: golang
       tags:
         - golang
         - backend
-          development
+        - development
+
+      # - Python
+    - role: python
+      tags:
+        - python
+        - backend
+        - machine_learning
+        - development
 
     # - role: snap
     #   tags:
