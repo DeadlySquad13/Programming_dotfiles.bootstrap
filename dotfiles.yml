@@ -6,6 +6,11 @@
     #   tags:
     #     - git
 
+    - role: fonts
+      tags:
+        - fonts
+        - Iosevka
+
     - role: powershell
       tags:
         - powershell
