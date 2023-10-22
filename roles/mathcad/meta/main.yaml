@@ -1,0 +1,4 @@
+dependencies:
+  - roles:
+    - applied_maths_scoop_bucket
+    - dotnet_framework_3-5
