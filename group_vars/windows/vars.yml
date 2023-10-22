@@ -13,5 +13,6 @@ ansible_shell_type: powershell
 # ansible_winrm_transport: basic
 # ansible_winrw_server_cert_validation: ignore
 
-configs_root: "H:/Shared/Configs"
+configs_root: "J:/$Env:UserName/Soft/scoop-"
+global_scoop_apps_root: "J:/Soft/scoop-"
 ...

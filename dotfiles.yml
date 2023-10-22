@@ -21,6 +21,9 @@
         - powershell
         - development
 
+    - role: scoop
+      tags:
+        - scoop
     - role: oh_my_posh
       tags:
         - powershell
