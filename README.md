@@ -43,3 +43,11 @@ After that you can run any scripts defined in the `$DOTFILES_PATH/bin`
 ```
 $ dot-bootstrap
 ```
+
+## Structure
+When the program is used in combination with another role, create a new task in
+the same folder nearby and import it. For example, `terminal-icons` is installed
+alongside `powershell`. If it is used with multiple roles, then use tags:
+`oh_my_posh` can be used in many terminals, therefore it is placed in
+a separate role and has the same tag as `powershell` role - `powershell`. So
+when you try to install any compatible shell, it will be installed alongside.

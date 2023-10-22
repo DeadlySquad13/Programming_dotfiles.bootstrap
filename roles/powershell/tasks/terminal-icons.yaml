@@ -1,0 +1,10 @@
+- name: Add bucket for Terminal-Icons for Powershell (on Windows)
+  community.windows.win_scoop_bucket:
+    name: extras
+  when: '"Windows" in ansible_distribution'
+
+- name: Install Terminal-Icons for Powershell (on Windows)
+  community.windows.win_scoop:
+    name: terminal-icons
+  when: '"Windows" in ansible_distribution'
+

@@ -21,6 +21,10 @@
         - powershell
         - development
 
+    - role: oh_my_posh
+      tags:
+        - powershell
+
       # Productivity.
     - role: bugwarrior
       tags:

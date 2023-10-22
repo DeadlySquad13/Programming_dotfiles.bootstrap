@@ -22,3 +22,6 @@
       parameters:
         Force: "{{ force }}"
   when: '"Windows" in ansible_distribution'
+
+- import_tasks: terminal-icons.yaml
+
