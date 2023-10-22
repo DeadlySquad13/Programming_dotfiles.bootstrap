@@ -1,0 +1,4 @@
+- name: Add personal Microsoft scoop bucket (on Windows)
+  community.windows.win_scoop_bucket:
+    name: https://github.com/DeadlySquad13/Microsoft
+  when: '"Windows" in ansible_distribution'
