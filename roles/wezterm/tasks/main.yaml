@@ -17,7 +17,8 @@
             $Force
         )
 
-        New-Item -ItemType SymbolicLink -Value "H:/Configs/Wezterm_config" -Path "$Env:UserProfile/Documents/Powershell" -Force:$Force
+        New-Item -ItemType SymbolicLink -Value "$Path/Wezterm_config" -Path "$Env:UserProfile/.config/wezterm" -Force:$Force
       parameters:
         Force: "{{ force }}"
+        Path: "{{ configs_root }}"
   when: '"Windows" in ansible_distribution'

@@ -12,4 +12,6 @@ ansible_shell_type: powershell
 # ansible_connection: winrm
 # ansible_winrm_transport: basic
 # ansible_winrw_server_cert_validation: ignore
+
+configs_root: "H:/Shared/Configs"
 ...

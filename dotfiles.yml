@@ -11,6 +11,11 @@
         - fonts
         - Iosevka
 
+    - role: wezterm
+      tags:
+        - wezterm
+        - development
+
     - role: powershell
       tags:
         - powershell
