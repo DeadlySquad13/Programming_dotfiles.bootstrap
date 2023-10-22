@@ -1,0 +1,4 @@
+- name: Add personal Applied__Maths scoop bucket (on Windows)
+  community.windows.win_scoop_bucket:
+    name: https://github.com/DeadlySquad13/Applied__Maths
+  when: '"Windows" in ansible_distribution'
