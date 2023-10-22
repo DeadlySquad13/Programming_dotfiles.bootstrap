@@ -51,3 +51,6 @@ alongside `powershell`. If it is used with multiple roles, then use tags:
 `oh_my_posh` can be used in many terminals, therefore it is placed in
 a separate role and has the same tag as `powershell` role - `powershell`. So
 when you try to install any compatible shell, it will be installed alongside.
+
+If the role is a direct dependency of another roles, then use meta
+`dependencies`.
