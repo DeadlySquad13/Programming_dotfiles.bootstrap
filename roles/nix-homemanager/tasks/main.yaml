@@ -1,0 +1,3 @@
+- name: Install nix homemanager
+  ansible.builtin.script:
+    cmd: install-homemanager.sh
