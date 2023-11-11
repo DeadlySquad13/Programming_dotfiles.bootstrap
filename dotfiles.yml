@@ -1,10 +1,29 @@
+- name: Set up local workstation (general)
+  hosts: all
+  roles:
+      # Text Editor.
+    - role: neovim
+      tags:
+        - neovim
+
+      # - Git TUI.
+    - role: lazygit
+      tags:
+        - git
+        - lazygit
+        - development
+
 - name: Prepare local UNIX workstation for nix setup
   hosts: salt
   roles:
+    - role: nix
+      tags:
+        - nix
 
     - role: nix-homemanager
       tags:
         - nix-homemanager
+
 - name: Set up local workstation
   hosts: windows
   roles:
@@ -12,7 +31,6 @@
     # - role: git
     #   tags:
     #     - git
-
     - role: fonts
       tags:
         - fonts
@@ -42,18 +60,6 @@
         - jira # TODO: Modularize it somehow?
         - productivity
       when: '"Windows" not in ansible_distribution' # Taskwarrior not supported on windows.
-
-      # - Git TUI.
-    - role: lazygit
-      tags:
-        - git
-        - lazygit
-        - development
-
-      # Text Editor.
-    - role: neovim
-      tags:
-        - neovim
 
       # Pdf.
       # - Pdf Reader
