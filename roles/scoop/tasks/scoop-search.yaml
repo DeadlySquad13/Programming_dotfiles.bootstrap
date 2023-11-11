@@ -1,0 +1,4 @@
+- name: Install scoop-search (on Windows)
+  community.windows.win_scoop:
+    name: scoop-search
+  when: '"Windows" in ansible_distribution'

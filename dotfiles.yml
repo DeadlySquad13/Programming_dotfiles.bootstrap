@@ -6,6 +6,28 @@
     #   tags:
     #     - git
 
+    - role: fonts
+      tags:
+        - fonts
+        - Iosevka
+
+    - role: wezterm
+      tags:
+        - wezterm
+        - development
+
+    - role: powershell
+      tags:
+        - powershell
+        - development
+
+    - role: scoop
+      tags:
+        - scoop
+    - role: oh_my_posh
+      tags:
+        - powershell
+
       # Productivity.
     - role: bugwarrior
       tags:
@@ -33,13 +55,21 @@
         - pdf
         - sumatrapdf
 
-      # Backend Development.
+      # Development.
       # - Golang
     - role: golang
       tags:
         - golang
         - backend
-          development
+        - development
+
+      # - Python
+    - role: python
+      tags:
+        - python
+        - backend
+        - machine_learning
+        - development
 
     # - role: snap
     #   tags:
