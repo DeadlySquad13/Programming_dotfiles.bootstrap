@@ -1,0 +1,24 @@
+- name: Install Wezterm (on Windows)
+  community.windows.win_scoop:
+    name: wezterm-nightly
+  when: '"Windows" in ansible_distribution'
+
+- name: Symlink Wezterm configuration (on Windows)
+  vars:
+    force: true
+  ansible.windows.win_powershell:
+      script: |
+        [CmdletBinding()]
+        param (
+            [String]
+            $Path,
+
+            [Switch]
+            $Force
+        )
+
+        New-Item -ItemType SymbolicLink -Value "$Path/Wezterm_config" -Path "$Env:UserProfile/.config/wezterm" -Force:$Force
+      parameters:
+        Force: "{{ force }}"
+        Path: "{{ configs_root }}"
+  when: '"Windows" in ansible_distribution'

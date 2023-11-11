@@ -1,0 +1,7 @@
+- name: Install Iosevka Fonts (on Windows)
+  vars:
+    force: true
+  ansible.windows.win_powershell:
+      script: |
+        H:/Scripts/Install-Fonts.ps1
+  when: '"Windows" in ansible_distribution'

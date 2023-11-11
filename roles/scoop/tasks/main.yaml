@@ -1,0 +1,19 @@
+- name: Install scoop (on Windows)
+  ansible.windows.win_powershell:
+      script: |
+        [CmdletBinding()]
+        param (
+            [String]
+            $Path,
+            $GlobalPath,
+        )
+
+        irm get.scoop.sh -outfile 'install.ps1'
+        mkdir -Force "$Path","$GlobalPath"
+        .\install.ps1 -ScoopDir '$Path' -ScoopGlobalDir '$GlobalPath' -NoProxy
+      parameters:
+        Path: "{{ scoop_apps_root }}"
+        GlobalPath: "{{ global_scoop_apps_root }}"
+  when: '"Windows" in ansible_distribution'
+
+- import_tasks: scoop-search.yaml
