@@ -60,7 +60,6 @@
     # - role: git
     #   tags:
     #     - git
-
     - role: fonts
       tags:
         - fonts
@@ -90,18 +89,6 @@
         - jira # TODO: Modularize it somehow?
         - productivity
       when: '"Windows" not in ansible_distribution' # Taskwarrior not supported on windows.
-
-      # - Git TUI.
-    - role: lazygit
-      tags:
-        - git
-        - lazygit
-        - development
-
-      # Text Editor.
-    - role: neovim
-      tags:
-        - neovim
 
       # Pdf.
       # - Pdf Reader

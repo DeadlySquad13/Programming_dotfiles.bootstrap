@@ -1,6 +1,19 @@
 #!/usr/bin/env bash
 set -e
 
+if ! [ -x "$(command -v ansible)" ]; then
+    if [ -x "$(command -v apt)" ]; then
+        sudo apt install ansible -v 2.7.4
+    elif [ -x "$(command -v yay)" ]; then
+        sudo yay ansible
+    elif [ -x "$(command -v pacman)" ]; then
+        sudo pacman -S ansible
+    else
+        echo "Error: couldn't find package manager to install ansible!";
+        exit 1
+    fi
+fi
+
 tags="$1"
 
 if [ -z "$tags" ]; then

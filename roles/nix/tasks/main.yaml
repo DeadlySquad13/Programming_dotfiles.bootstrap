@@ -1,0 +1,7 @@
+- name: Install nix for all users
+  include_role:
+    name: nix-install
+
+- name: Postinstall nix
+  ansible.builtin.debug:
+    msg: "Reload shell for changes to take effect"

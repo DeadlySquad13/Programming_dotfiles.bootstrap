@@ -1,0 +1,15 @@
+
+
+- name: Create keymapper user for keyszer
+  ansible.builtin.user:
+    name: '{{ keymapper_username }}'
+    comment: User for managing keyboard-related services (e.g. keyszer)
+    create_home: true
+
+- name: Install keyszer
+  community.general.pipx:
+    name: keyszer
+    source: git+https://github.com/joshgoebel/keyszer.git
+  become: yes
+  become_method: su
+  become_user: '{{ keymapper_username }}'
