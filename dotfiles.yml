@@ -24,7 +24,18 @@
       tags:
         - nix-homemanager
 
-- name: Set up local workstation
+    - role: pipx
+
+    - role: keyszer
+      tags:
+        - keymapper
+        - keyszer
+
+    - role: invoke
+      tags:
+        - scripting
+        - invoke
+
   hosts: windows
   roles:
       # Git
