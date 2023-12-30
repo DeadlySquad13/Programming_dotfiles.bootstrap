@@ -1,0 +1,6 @@
+---
+ansible_user: ds13
+ansible_password: "{{ vault_salt_ds13_password }}"
+configs_root: "J:/$Env:UserName/Soft/scoop-"
+global_scoop_apps_root: "J:/Soft/scoop-"
+...

@@ -1,0 +1,26 @@
+# Set variables inside this role in vars/main.yml
+
+- name: Find passwd getent database
+  ansible.builtin.getent:
+     database: passwd
+     key: "{{ share_host_username }}"
+
+- name: Find uid and gid of a user
+  ansible.builtin.set_fact:
+     uid: "{{ getent_passwd[share_host_username][1] }}"
+     gid: "{{ getent_passwd[share_host_username][2] }}"
+
+- name: Mount Samba volume for user
+  become: yes
+  vars:
+    #   Architecture is such that the users of connected systems match. It's not
+    # a hard requirement though so variables are named different.
+    username: "{{ share_host_username }}"
+    network_path: //192.168.56.1/projects
+  ansible.posix.mount:
+    backup: true
+    src: "{{ network_path }}"
+    path: /home/{{ username }}/projects/shared-
+    opts: "vers=3,credentials=/home/{{ username }}/.smbcredentials,uid={{ uid }},gid={{ gid }},mfsymlinks"
+    fstype: cifs
+    state: mounted

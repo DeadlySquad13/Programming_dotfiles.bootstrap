@@ -6,7 +6,7 @@
 # ansible_winrm_transport: basic
 # ansible_winrm_server_cert_validation: ignore
 ansible_user: ds13
-ansible_passwowd: "{{ vault_windows_ds13_password }}"
+ansible_password: "{{ vault_windows_ds13_password }}"
 ansible_shell_type: powershell
 # ansible_port: 5986
 # ansible_connection: winrm

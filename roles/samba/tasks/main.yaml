@@ -1,0 +1,13 @@
+- name: Create directory you're going to share if it doesn't exist
+  ansible.windows.win_file:
+    path: J:\ds13\Projects
+    state: directory
+  when: '"Windows" in ansible_distribution'
+
+- name: Add public Samba share
+  ansible.windows.win_share:
+    name: projects
+    description: Shareable Projects of ds13
+    path: J:\ds13\Projects
+    full: ds13
+  when: '"Windows" in ansible_distribution'

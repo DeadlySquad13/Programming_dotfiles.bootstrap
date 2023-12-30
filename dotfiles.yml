@@ -1,6 +1,61 @@
-- name: Set up local workstation
+- name: Set up local workstation (general)
+  hosts: all
+  roles:
+      # Text Editor.
+    - role: neovim
+      tags:
+        - neovim
+
+      # - Git TUI.
+    - role: lazygit
+      tags:
+        - git
+        - lazygit
+        - development
+
+- name: Prepare local UNIX workstation for nix setup
+  hosts: salt
+  roles:
+    - role: nix
+      tags:
+        - nix
+
+    - role: nix-homemanager
+      tags:
+        - nix-homemanager
+
+    - role: pipx
+
+    - role: keyszer
+      tags:
+        - keymapper
+        - keyszer
+
+    - role: invoke
+      tags:
+        - scripting
+        - invoke
+
+- name: Set up inside Virtual Machine
+  hosts: pepper
+  roles:
+    - role: samba_mounts
+      tags:
+        - samba_mounts
+
+- name: Set up local Windows workstation
   hosts: windows
   roles:
+    - role: samba
+      tags:
+        - samba
+
+    - role: wsl_nixos
+      tags:
+        - wsl_nixos
+        - wsl
+        - nix
+
       # Git
     # - role: git
     #   tags:
@@ -18,8 +73,8 @@
 
     - role: powershell
       tags:
-        - powershell
         - development
+        - powershell
 
     - role: scoop
       tags:
