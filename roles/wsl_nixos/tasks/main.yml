@@ -1,0 +1,51 @@
+# Throws error 'Not a windows host'. Most likely because Windows host is targeted via bridge from VM.
+# - name: Enable needed features
+#   ansible.windows.win_feature:
+#     name:
+#       - VirtualMachinePlatform
+#       - Microsoft-Windows-Subsystem-Linux
+#     state: present
+
+- name: Set up WSL Distribution NixOS 
+  ansible.windows.win_powershell:
+      script: |
+        [CmdletBinding()]
+        param (
+            [String]
+            $DistributivePath,
+
+            [String]
+            $InstallationPath,
+
+            [String]
+            $WslVersion,
+
+            [String]
+            $DistributionName
+        )
+
+        mkdir -Force "$InstallationPath"
+
+        if (Test-Path "$InstallationPath") {
+          wsl --import "$DistributionName" "$InstallationPath" "$DistributivePath" --version [int]"$WslVersion"
+        }
+      parameters:
+        DistributivePath: "{{ distributive_path }}"
+        InstallationPath: "{{ installation_path }}"
+        WslVersion: "{{ wsl_version }}"
+        DistributionName: "{{ distribution_name }}"
+  when: '"Windows" in ansible_distribution'
+
+- name: Make installed distribution default
+  ansible.windows.win_powershell:
+      script: |
+        [CmdletBinding()]
+        param (
+            [String]
+            $DistributionName
+        )
+
+        wsl --set-default "$DistributionName"
+      parameters:
+        DistributionName: "{{ distribution_name }}"
+  when: '"Windows" in ansible_distribution'

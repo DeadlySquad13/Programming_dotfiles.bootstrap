@@ -1,0 +1,6 @@
+distributive_path: "H:\\Archive\\Installers\\Soft\\Distributives\\nixos-wsl.tar.gz"
+installation_path: "N:\\Wsl__NixOs"
+# Either 1 or 2.
+wsl_version: 2
+# Name for your wsl distribution.
+distribution_name: "NixOs"
