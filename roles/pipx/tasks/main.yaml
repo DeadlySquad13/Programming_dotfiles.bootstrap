@@ -1,0 +1,12 @@
+#   Can be installed via python too but pacman will cry that he is better. Not
+# gonna argue :)
+- name: Install package pipx via pacman
+  community.general.pacman:
+    name: python-pipx
+  when: ansible_facts['os_family'] == 'Archlinux'
+
+- name: Install pipx via pip
+  ansible.builtin.pip:
+    name: pipx
+    extra_args: --user
+  when: not ansible_facts['os_family'] == 'Archlinux'
