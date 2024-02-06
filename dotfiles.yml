@@ -65,6 +65,11 @@
         - fonts
         - Iosevka
 
+    - role: latex
+      tags:
+        - latex
+        - writing
+
     - role: wezterm
       tags:
         - wezterm

@@ -1,0 +1,9 @@
+- name: Add scoop bucket (dorado) with TexLive (on Windows)
+  community.windows.win_scoop_bucket:
+    name: https://github.com/chawyehsu/dorado
+  when: '"Windows" in ansible_distribution'
+
+- name: Install TexLive-Full (on Windows)
+  community.windows.win_scoop:
+    name: texlive-full
+  when: '"Windows" in ansible_distribution'
