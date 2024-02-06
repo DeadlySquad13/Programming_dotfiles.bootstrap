@@ -1,3 +1,4 @@
+# TODO: Add Mathcad to Microsoft bucket.
 - name: Install Mathcad (on Windows)
   community.windows.win_scoop:
     name: wezterm-nightly
