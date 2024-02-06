@@ -1,4 +1,4 @@
-- name: Install Wezterm (on Windows)
+- name: Install (requires manual) Microsoft .Net Framework 3.5 (on Windows)
   community.windows.win_scoop:
-    name: wezterm-nightly
+    name: Microsoft.NETFramework3.5-ManualInstall
   when: '"Windows" in ansible_distribution'
