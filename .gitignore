@@ -5,3 +5,6 @@ KnowledgeBase__*
 # Secrets
 .vault_pass
 .vault_pass.py
+
+# Virtual environments
+.venv*
