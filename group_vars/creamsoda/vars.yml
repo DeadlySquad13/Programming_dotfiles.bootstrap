@@ -1,0 +1,5 @@
+---
+ansible_user: aspakalo
+ansible_password: "{{ vault_pepper_ds13_password }}"
+ansible_sudo_pass: "{{ vault_pepper_ds13_password }}"
+...
