@@ -33,6 +33,10 @@
       tags:
         - nix-homemanager
 
+    - role: vivaldi
+      tags:
+        - vivaldi
+        - browser
 
 - name: Prepare local UNIX workstation for nix setup
   hosts: salt
