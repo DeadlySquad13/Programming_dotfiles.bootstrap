@@ -1,3 +1,30 @@
+- name: Get current home-manager configuration directory stats
+  local_action: "stat path={{ homemanager_path }}"
+  register: file
+
+- name: Backup current home-manager directory
+  ansible.builtin.copy:
+    src: "{{ homemanager_path }}"
+    dest: '{{ homemanager_path }}.backup{{ "%Y-%m-%dT%H:%M:%S" | strftime }}'
+  when: file.stat.exists
+
+- name: Clean current home-manager directory
+  ansible.builtin.file:
+    path: "{{ homemanager_path }}"
+    state: absent
+  when: file.stat.exists
+
 - name: Install nix homemanager
   ansible.builtin.script:
     cmd: install-homemanager.sh
+
+- name: Clean default home-manager directory
+  ansible.builtin.file:
+    path: "{{ homemanager_path }}"
+    state: absent
+
+- name: Clone DeadlySquad13/Unix_dotfiles repo
+  ansible.builtin.git:
+    repo: git@github.com:DeadlySquad13/Unix_dotfiles.git
+    dest: "{{ homemanager_path }}"
+    version: main
