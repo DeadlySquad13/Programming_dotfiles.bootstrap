@@ -13,6 +13,27 @@
         - lazygit
         - development
 
+    - role: pipx
+      tags:
+        - pipx
+
+    - role: invoke
+      tags:
+        - scripting
+        - invoke
+
+- name: Set up local MacOs workstation
+  hosts: creamsoda
+  roles:
+    - role: nix
+      tags:
+        - nix
+
+    - role: nix-homemanager
+      tags:
+        - nix-homemanager
+
+
 - name: Prepare local UNIX workstation for nix setup
   hosts: salt
   roles:
@@ -24,17 +45,11 @@
       tags:
         - nix-homemanager
 
-    - role: pipx
-
     - role: keyszer
       tags:
         - keymapper
         - keyszer
 
-    - role: invoke
-      tags:
-        - scripting
-        - invoke
 
 - name: Set up inside Virtual Machine
   hosts: pepper
