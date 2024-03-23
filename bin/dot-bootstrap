@@ -2,11 +2,18 @@
 set -e
 
 if ! [ -x "$(command -v ansible)" ]; then
-    if [ -x "$(command -v apt)" ]; then
+    echo "Ansible is not installed.";
+    if [ -x "$(command -v brew)" ]; then
+        echo "Installing it via brew...";
+        brew install ansible
+    elif [ -x "$(command -v apt)" ]; then
+        echo "Installing it via apt...";
         sudo apt install ansible -v 2.7.4
     elif [ -x "$(command -v yay)" ]; then
+        echo "Installing it via yay...";
         sudo yay ansible
     elif [ -x "$(command -v pacman)" ]; then
+        echo "Installing it via pacman...";
         sudo pacman -S ansible
     else
         echo "Error: couldn't find package manager to install ansible!";
@@ -25,17 +32,6 @@ if [ -z "$tags" ]; then
             Cancel ) exit;;
         esac
     done
-fi
-
-if ! [ -x "$(command -v ansible)" ]; then
-    if [ -x "$(command -v apt)" ]; then
-        sudo apt install ansible -v 2.7.4
-    elif [ -x "$(command -v pacman)" ]; then
-        sudo pacman -S ansible
-    else
-        echo "Error: couldn't find package manager to install ansible!";
-        exit 1
-    fi
 fi
 
 ansible-playbook ./dotfiles.yml --tags "$tags" -v
