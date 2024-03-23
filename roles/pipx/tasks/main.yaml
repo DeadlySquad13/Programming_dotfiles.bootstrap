@@ -5,8 +5,13 @@
     name: python-pipx
   when: ansible_facts['os_family'] == 'Archlinux'
 
+- name: Install package pipx via brew
+  community.general.homebrew:
+    name: pipx
+  when: ansible_facts['os_family'] == 'Darwin'
+
 - name: Install pipx via pip
   ansible.builtin.pip:
     name: pipx
     extra_args: --user
-  when: not ansible_facts['os_family'] == 'Archlinux'
+  when: not ansible_facts['os_family'] == 'Archlinux' and not ansible_facts['os_family'] == 'Darwin'
