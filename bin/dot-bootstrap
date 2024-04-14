@@ -18,10 +18,10 @@ tags="$1"
 
 if [ -z "$tags" ]; then
     echo "Do you wish to install all tags? It will override current configurations."
-    select yn in "Yes" "No" "Cancel"; do
+    select yn in "Yes" "No, choose tags" "Cancel"; do
         case $yn in
             Yes ) tags="all"; break;;
-            No ) read -p "Enter tags: " tags; break;;
+            "No, choose tags" ) read -p "Enter tags: " tags; break;;
             Cancel ) exit;;
         esac
     done
