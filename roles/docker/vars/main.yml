@@ -1,0 +1,2 @@
+sysctld_path: /etc/sysctl.d
+backup_dir: /etc/_backup
