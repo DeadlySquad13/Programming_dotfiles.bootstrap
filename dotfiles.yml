@@ -50,6 +50,11 @@
       tags:
         - samba
 
+    - role: vivaldi
+      tags:
+        - vivaldi
+        - browser
+
     - role: wsl_nixos
       tags:
         - wsl_nixos
