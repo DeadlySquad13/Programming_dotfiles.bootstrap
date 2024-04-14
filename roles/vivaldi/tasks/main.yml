@@ -1,0 +1,4 @@
+- name: Install Vivaldi (on Windows)
+  community.windows.win_scoop:
+    name: vivaldi
+  when: '"Windows" in ansible_distribution'
