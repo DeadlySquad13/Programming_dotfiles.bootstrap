@@ -12,6 +12,28 @@
         - git
         - lazygit
         - development
+    - role: pipx
+      tags:
+        - pipx
+
+    - role: invoke
+      tags:
+        - scripting
+        - invoke
+
+- name: Prepare local UNIX workstation for nix setup
+  hosts:
+    - salt
+    - creamsoda
+  roles:
+    - role: nix
+      tags:
+        - nix
+
+    - role: nix-homemanager
+      tags:
+        - nix-homemanager
+
 
 - name: Set up local ArchLinux workstation
   hosts: salt
@@ -22,28 +44,19 @@
         - devops
         - docker
 
-- name: Prepare local UNIX workstation for nix setup
-  hosts: salt
-  roles:
-    - role: nix
-      tags:
-        - nix
-
-    - role: nix-homemanager
-      tags:
-        - nix-homemanager
-
-    - role: pipx
-
     - role: keyszer
       tags:
         - keymapper
         - keyszer
 
-    - role: invoke
+- name: Set up local MacOs workstation
+  hosts: creamsoda
+  roles:
+    - role: vivaldi
       tags:
-        - scripting
-        - invoke
+        - vivaldi
+        - browser
+
 
 - name: Set up inside Virtual Machine
   hosts: pepper
@@ -51,6 +64,7 @@
     - role: samba_mounts
       tags:
         - samba_mounts
+
 
 - name: Set up local Windows workstation
   hosts: windows
