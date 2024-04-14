@@ -13,6 +13,15 @@
         - lazygit
         - development
 
+- name: Set up local ArchLinux workstation
+  hosts: salt
+  roles:
+    - role: docker
+      tags:
+        - development
+        - devops
+        - docker
+
 - name: Prepare local UNIX workstation for nix setup
   hosts: salt
   roles:

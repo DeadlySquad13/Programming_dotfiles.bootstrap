@@ -1,0 +1,5 @@
+- name: Make docker run in rootless mode (on ArchLinux)
+  community.general.pacman:
+    name: fuse-overlayfs
+  become: true
+  when: '"Archlinux" in ansible_distribution'
