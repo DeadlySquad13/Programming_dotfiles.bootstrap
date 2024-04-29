@@ -1,15 +1,41 @@
-
-
 - name: Create keymapper user for keyszer
   ansible.builtin.user:
-    name: '{{ keymapper_username }}'
+    name: "{{ keymapper_username }}"
     comment: User for managing keyboard-related services (e.g. keyszer)
     create_home: true
+  become: yes
 
 - name: Install keyszer
   community.general.pipx:
     name: keyszer
     source: git+https://github.com/joshgoebel/keyszer.git
+  # Runs as sudo but from keymapper user perspective. In other words, we
+  # require only system sudo password, not keymapper user password. It may be
+  # a problem when you'll want to enter this user later manually.
   become: yes
-  become_method: su
-  become_user: '{{ keymapper_username }}'
+  become_user: "{{ keymapper_username }}"
+
+- name: Configure linux access control lists (acl) for keymapper user to have enough permissions to manage inputs
+  template:
+    src: 90-keymapper-acl.rules.j2
+    dest: "/etc/udev/rules.d/90-keymapper-acl.rules"
+    backup: true
+    mode: 0644
+  become: yes
+
+- name: Ensure keyszer.service in place for systemd to use
+  template:
+    src: keyszer.service.j2
+    dest: "/etc/systemd/system/keyszer.service"
+    backup: true
+    mode: 0644
+  become: yes
+
+- name: Ensure keyszer.service is enabled
+  ansible.builtin.systemd_service:
+    state: started
+    # Reload systemd daemon to apply changes to services.
+    daemon_reload: true
+    enabled: true
+    name: keyszer
+  become: yes
