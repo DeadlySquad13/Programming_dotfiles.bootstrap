@@ -1,5 +1,10 @@
 # Reference: https://docs.docker.com/engine/security/rootless/#distribution-specific-hint
 
+- name: Install docker (on Windows)
+  community.windows.win_scoop:
+    name: docker
+  when: '"Windows" in ansible_distribution'
+
 - name: Make docker run in rootless mode (on ArchLinux)
   community.general.pacman:
     name: fuse-overlayfs
@@ -15,6 +20,7 @@
   ansible.builtin.file:
     path: "{{ backup_dir }}/sysctl.d"
     state: directory
+  when: file.stat.exists
 
 - name: Backup current sysctl.d directory
   become: true
