@@ -12,6 +12,7 @@
         - git
         - lazygit
         - development
+
     - role: pipx
       tags:
         - pipx
@@ -21,7 +22,18 @@
         - scripting
         - invoke
 
-- name: Prepare local UNIX workstation for nix setup
+- name: Set up local Unix workstation (general)
+  hosts:
+    - salt
+    - creamsoda
+  roles:
+    - role: manly
+      tags:
+        - knowledge
+        - manly
+
+
+- name: Prepare local Unix workstation for nix setup
   hosts:
     - salt
     - creamsoda
@@ -49,9 +61,11 @@
         - keymapper
         - keyszer
 
+
 - name: Set up local MacOs workstation
   hosts: creamsoda
   roles:
+    # ? Move to general?
     - role: vivaldi
       tags:
         - vivaldi

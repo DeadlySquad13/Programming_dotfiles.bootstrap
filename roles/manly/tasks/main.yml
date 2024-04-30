@@ -1,0 +1,3 @@
+- name: Ensure manly is installed
+  community.general.pipx:
+    name: manly
