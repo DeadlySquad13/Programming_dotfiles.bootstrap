@@ -1,0 +1,10 @@
+- name: Create a new primary partition for nix store on zfs
+  community.general.parted:
+    device: /dev/sdd
+    number: 4
+    state: present
+    # End of the 3rd partition + 1 (in sectors).
+    part_start: 1685506048s
+    part_end: 840GiB
+    unit: GiB
+  become: true
