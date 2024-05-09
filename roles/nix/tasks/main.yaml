@@ -2,6 +2,7 @@
   include_role:
     name: nix-install
 
+# TODO: Make a handler.
 - name: Postinstall nix
   ansible.builtin.debug:
     msg: "Reload shell for changes to take effect"
