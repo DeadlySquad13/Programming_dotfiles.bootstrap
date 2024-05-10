@@ -1,0 +1,17 @@
+# See man page: zpool-create.
+- name: Ensure a new zfs pool is created
+  # - `-O` - filesystem properties, see zfsprops man page.
+  # - `-o` - pool properties or feature, see zpoolprops and zpool-features man pages respectively.
+  #
+  # Fine-tuned according to guide: zotero://select/library/items/KL7JXZFH = https://jrs-s.net/2018/08/17/zfs-tuning-cheat-sheet/
+  #
+  # `creates=<mountpoint>` option allows to skip command if zpool aready exists
+  #   at specied mountpoint.
+  command: zpool create -O compression=lz4 z{{ ansible_nodename }} -o ashift=12 -O xattr=sa -O atime=off -O recordsize=64K /dev/sdd4 creates=/z{{ ansible_nodename }}
+  become: true
+
+- name: Create a new filesystem on pool
+  community.general.zfs:
+    name: z{{ ansible_nodename }}/local-/nix
+    state: present
+  become: true

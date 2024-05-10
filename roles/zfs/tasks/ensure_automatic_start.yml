@@ -1,0 +1,26 @@
+# Reference: zotero://select/library/items/ZS4NF6J6
+
+- name: Ensure zfs-import-cache service is enabled and started
+  ansible.builtin.service:
+    name: zfs-import-cache
+    state: started
+  become: true
+
+- name: Ensure zfs-mount service is enabled and started
+  ansible.builtin.service:
+    name: zfs-mount
+    state: started
+  become: true
+
+- name: Ensure zfs target is enabled and started
+  ansible.builtin.service:
+    name: zfs.target
+    state: started
+  become: true
+
+- name: Ensure zfs-import target is enabled and started
+  ansible.builtin.service:
+    name: zfs-import.target
+    state: started
+  become: true
+

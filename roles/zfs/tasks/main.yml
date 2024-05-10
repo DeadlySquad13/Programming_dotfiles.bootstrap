@@ -1,0 +1,19 @@
+# Reference: https://wiki.archlinux.org/title/ZFS
+
+- name: Ensure zfs is installed
+  yay:
+    # Stable release. See ArchWiki for list of available variants
+    # https://wiki.archlinux.org/title/ZFS#:~:text=Installation-,General,-Warning%3A%20Unless
+    name: zfs-linux
+  become: true
+  when: '"Archlinux" in ansible_distribution'
+
+- include_tasks: ensure_automatic_start.yml
+
+- include_tasks: ensure_automatic_mount.yml
+
+- name: Ensure zfs kernel module is enabled
+  community.general.modprobe:
+    name: zfs
+    state: present
+  become: true

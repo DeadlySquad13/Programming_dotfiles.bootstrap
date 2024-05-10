@@ -1,0 +1,13 @@
+# Reference: zotero://select/library/items/8YS2M8YH
+
+- name: Ensure /etc/zfs/zfs-list.cache directory exists
+  ansible.builtin.file:
+    path: "/etc/zfs/zfs-list.cache"
+    state: directory
+  become: true
+
+- name: Ensure zfs-zed service is enabled and started
+  ansible.builtin.service:
+    name: zfs-zed
+    state: started
+  become: true

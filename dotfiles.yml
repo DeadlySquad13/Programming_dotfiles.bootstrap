@@ -50,6 +50,14 @@
 - name: Set up local ArchLinux workstation
   hosts: salt
   roles:
+    - role: partitions
+      tags:
+        - partitions
+
+    - role: filesystem
+      tags:
+        - filesystem
+
     - role: docker
       tags:
         - development
