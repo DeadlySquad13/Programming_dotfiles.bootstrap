@@ -10,8 +10,17 @@
   command: zpool create -O compression=lz4 z{{ ansible_nodename }} -o ashift=12 -O xattr=sa -O atime=off -O recordsize=64K /dev/sdd4 creates=/z{{ ansible_nodename }}
   become: true
 
-- name: Create a new filesystem on pool
+- name: Create a new filesystems on pool
+  community.general.zfs:
+    # These are actually two filesystems: `zsalt` and `zsalt/local-`.
+    name: z{{ ansible_nodename }}/local-/
+    state: present
+  become: true
+
+- name: Create a new filesystem on pool and mount it to /nix
   community.general.zfs:
     name: z{{ ansible_nodename }}/local-/nix
     state: present
+    extra_zfs_properties:
+      mountpoint: /nix
   become: true
