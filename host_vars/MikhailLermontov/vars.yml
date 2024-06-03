@@ -1,0 +1,4 @@
+---
+ansible_user: ds13
+ansible_become_password: "{{ vault_MikhailLermontov_ds13_password }}"
+...
