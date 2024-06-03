@@ -153,6 +153,11 @@
         - sumatrapdf
 
       # Development.
+    - role: docker
+      tags:
+        - development
+        - devops
+        - docker
       # - Golang
     - role: golang
       tags:
