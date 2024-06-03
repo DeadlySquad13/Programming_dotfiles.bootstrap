@@ -1,3 +1,4 @@
+# Setting up workstations for personal use.
 - name: Set up local workstation (general)
   hosts: all
   roles:
@@ -218,4 +219,12 @@
     - role: ripgrep_all
       tags:
         - ripgrep
+
+- name: Set up lent workstation MikhailLermontov
+  hosts: MikhailLermontov
+  roles:
+    - role: users
+      tags:
+        - users
+
 

@@ -1,0 +1,24 @@
+- name: Make sure a 'wheel' group exists
+  group:
+    name: wheel
+    state: present
+
+- name: Allow 'wheel' group to have sudo to execute any command
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%wheel'
+    line: '%wheel ALL=(ALL:ALL) ALL'
+    validate: 'visudo -cf %s'
+
+- name: Ensure ds13 users with wheel group exists
+  ansible.builtin.user:
+    name: ds13
+    group: wheel
+
+# To actually start using this user from ansible you may need to
+# add key manually or via file operations:
+# - name: Set up authorized keys for the deployer user
+#  authorized_key: user=deployer key="{{item}}"
+#  with_file:
+#    - /home/railsdev/.ssh/id_rsa.pub
