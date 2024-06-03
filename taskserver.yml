@@ -1,0 +1,8 @@
+- name: Set up taskserver
+  hosts:
+    - taskserver
+  roles:
+    - role: taskserver2
+      tags:
+        - taskserver2
+        - taskd

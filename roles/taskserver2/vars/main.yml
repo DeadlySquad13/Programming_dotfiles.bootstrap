@@ -1,0 +1,8 @@
+# For full list see: https://github.com/g2g/ansible-role-taskd/blob/master/defaults/main.yml
+# Organizations to be created
+taskd_organizations:
+  - Public
+# The users to be created, organization must be in the taskd_organizations variable!
+taskd_users:
+  - name: Deadly Squad13
+    organization: Public
