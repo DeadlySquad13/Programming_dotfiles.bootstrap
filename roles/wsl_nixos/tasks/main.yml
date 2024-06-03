@@ -6,6 +6,7 @@
 #       - Microsoft-Windows-Subsystem-Linux
 #     state: present
 
+# Had some errors previous time… While executing it manually was ok.
 - name: Set up WSL Distribution NixOS 
   ansible.windows.win_powershell:
       script: |
@@ -26,9 +27,19 @@
 
         mkdir -Force "$InstallationPath"
 
-        if (Test-Path "$InstallationPath") {
-          wsl --import "$DistributionName" "$InstallationPath" "$DistributivePath" --version [int]"$WslVersion"
+        if (-Not (Test-Path "$InstallationPath")) {
+          echo "InstallationPath doesn't exist: $InstallationPath"
+
+          return 1
         }
+
+        if (-Not (Test-Path "$DistributivePath")) {
+          echo "DistributivePath doesn't exist: $DistributivePath"
+
+          return 1
+        }
+
+        wsl --import "$DistributionName" "$InstallationPath" "$DistributivePath" --version [int]"$WslVersion"
       parameters:
         DistributivePath: "{{ distributive_path }}"
         InstallationPath: "{{ installation_path }}"
@@ -49,3 +60,15 @@
       parameters:
         DistributionName: "{{ distribution_name }}"
   when: '"Windows" in ansible_distribution'
+
+# https://nix-community.github.io/NixOS-WSL/install.html
+# Post-install
+# update channels
+# nix-shell -p git
+# fetch flake
+# sudo nixos-rebuild switch --flake . --impure
+# assign passwords: `sudo -i`, `sudo passwd <user>`
+# change permissions for configuration folder: `chown -R :wheel <path>`, `chmod
+# g+w -R <path>`
+# or maybe easier to package own system https://nix-community.github.io/NixOS-WSL/building.html
+
