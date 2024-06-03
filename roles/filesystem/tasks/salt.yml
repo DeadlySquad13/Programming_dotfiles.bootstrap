@@ -13,7 +13,7 @@
 - name: Create a new filesystems on pool
   community.general.zfs:
     # These are actually two filesystems: `zsalt` and `zsalt/local-`.
-    name: z{{ ansible_nodename }}/local-/
+    name: z{{ ansible_nodename }}/local-
     state: present
   become: true
 
@@ -24,3 +24,60 @@
     extra_zfs_properties:
       mountpoint: /nix
   become: true
+
+# Variable data
+- name: Prepare variable data folders (var- namespace)
+  ansible.builtin.file:
+    path: z{{ ansible_nodename }}/local-/var-
+    state: directory
+
+- name: Create a new filesystem on pool for local variable data
+  community.general.zfs:
+    name: z{{ ansible_nodename }}/local-/var-
+    state: present
+  become: true
+
+# Mounted it because docker doesn't like links.
+- name: Create a new filesystems on pool for local variable data categories
+  community.general.zfs:
+    name: z{{ ansible_nodename }}/local-/var-/{{ item.name }}
+    state: present
+    extra_zfs_properties:
+      # TODO: remove user hardcode.
+      mountpoint: /home/ds13/{{ item.mountpoint }}
+  become: true
+  loop:
+    - { name: cache, mountpoint: .cache }
+    # Architecture independent data (messengers cache for example).
+    - { name: share, mountpoint: .local/share }
+
+  # ? Can be made as an option for mount like in /etc/fstab? Or just reuse
+  # this loop for both tasks.
+- name: Make sure mounted points have user as owner
+  ansible.builtin.file:
+    # TODO: remove user hardcode.
+    path: /home/ds13/{{ item.mountpoint }}
+    owner: ds13
+    group: ds13
+  become: true
+  loop:
+    - { name: cache, mountpoint: .cache }
+    # Architecture independent data (messengers cache for example).
+    - { name: share, mountpoint: .local/share }
+
+# Using stow?
+# - name: Make sure variable data subfolders are soft linked
+#   ansible.builtin.file:
+#     src: '/z{{ ansible_nodename }}/local-/var-/{{ item.src }}'
+#     # TODO: Remove user hardcode.
+#     # ? It shouldn't be a user related but node related?
+#     dest: '/home/ds13/{{ item.dest }}'
+#     state: link
+#   loop:
+#     - { src: cache, dest: .cache }
+#     # Architecture independent data (messengers cache for example).
+#     - { src: share, dest: .local/share }
+
+# TODO: Link other cache files that are not following standards that are
+# established in links above. For instance, Discord.
+
