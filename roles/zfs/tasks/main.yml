@@ -1,12 +1,15 @@
 # Reference: https://wiki.archlinux.org/title/ZFS
 
-- name: Ensure zfs is installed
-  yay:
-    # Stable release. See ArchWiki for list of available variants
+# - name: Ensure zfs is installed
+#   yay:
+    # Most recent release built for linux kernel, mostly up to date to arch.
+    # But may sometimes be outdated for about a week.
+    # See ArchWiki for list of available variants
     # https://wiki.archlinux.org/title/ZFS#:~:text=Installation-,General,-Warning%3A%20Unless
-    name: zfs-linux
-  become: true
-  when: '"Archlinux" in ansible_distribution'
+    # Unfortunately, dkms variant doesn't always build for latest kernel.
+  #   name: zfs-linux
+  # become: true
+  # when: '"Archlinux" in ansible_distribution'
 
 - include_tasks: ensure_automatic_start.yml
 
