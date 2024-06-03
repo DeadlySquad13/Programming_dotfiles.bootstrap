@@ -1,0 +1,55 @@
+- name: Make docker run in rootless mode (on ArchLinux)
+  community.general.pacman:
+    name: fuse-overlayfs
+  become: true
+  when: '"Archlinux" in ansible_distribution'
+
+- name: Get current sysctl.d configuration directory stats
+  local_action: "stat path={{ sysctld_path }}"
+  register: file
+
+- name: Ensure that backup directory exists
+  become: true
+  ansible.builtin.file:
+    path: "{{ backup_dir }}/sysctl.d"
+    state: directory
+  when: file.stat.exists
+
+- name: Backup current sysctl.d directory
+  become: true
+  ansible.builtin.copy:
+    src: "{{ sysctld_path }}/"
+    dest: '{{ backup_dir }}/sysctl.d/{{ "%Y-%m-%dT%H:%M:%S" | strftime }}'
+  when: file.stat.exists
+
+- name: Clean current sysctl.d directory
+  become: true
+  ansible.builtin.file:
+    path: "{{ sysctld_path }}"
+    state: absent
+  when: file.stat.exists
+
+- name: Recreate sysctl.d directory
+  become: true
+  ansible.builtin.file:
+    path: "{{ sysctld_path }}"
+    state: directory
+
+- name: Copy settings for docker rootless mode into sysctl.d directory
+  become: true
+  ansible.builtin.copy:
+    src: "60-docker-rootless-mode.conf"
+    dest: "{{ sysctld_path }}/60-docker-rootless-mode.conf"
+  when: file.stat.exists
+
+# TODO: Run this command (is it for checking or needed to apply settings?):
+# sudo sysctl --system
+
+#   Then install script for preparing our system for running docker in
+# rootless mode.
+# Reference: https://wiki.archlinux.org/title/Docker#:~:text=Rootless%20Docker%20daemon
+- name: Install script for running docker in rootless mode (on ArchLinux)
+  community.general.pacman:
+    name: docker-rootless-extras
+  become: true
+  when: '"Archlinux" in ansible_distribution'
