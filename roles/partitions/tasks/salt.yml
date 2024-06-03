@@ -5,6 +5,8 @@
     state: present
     # End of the 3rd partition + 1 (in sectors).
     part_start: 1685506048s
-    part_end: 840GiB
-    unit: GiB
+    # part_end: 840GiB
+    # unit: GiB
+    part_end: "100%"
+    unit: "%"
   become: true
