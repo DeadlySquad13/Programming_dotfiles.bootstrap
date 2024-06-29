@@ -1,41 +1,30 @@
-- name: Create keymapper user for keyszer
-  ansible.builtin.user:
-    name: "{{ keymapper_username }}"
-    comment: User for managing keyboard-related services (e.g. keyszer)
-    create_home: true
-  become: yes
+- include_tasks: ensure_keyszer_runs_from_keymapper.yml
 
-- name: Install keyszer
-  community.general.pipx:
-    name: keyszer
-    source: git+https://github.com/joshgoebel/keyszer.git
-  # Runs as sudo but from keymapper user perspective. In other words, we
-  # require only system sudo password, not keymapper user password. It may be
-  # a problem when you'll want to enter this user later manually.
-  become: yes
-  become_user: "{{ keymapper_username }}"
+# Unfortunately, doesn't work: keymapper can't access file in dest. It seems not
+# as a problem with permissions but with keyszer functionality. I checked:
+# access is ok but keyszer can't read file. Most likely a symlink issue.
+# - name: Symlink Keyszer scripts
+#   vars:
+#     system_scripts: /home/ds13/.bookmarks/system-scripts
+#   ansible.builtin.file:
+#     src: "{{ system_scripts }}/Keymappings__Keyszer_scripts/keyszer.conf"
+#     dest: "{{ keyszer_config_path }}"
+#     group: wheel
+#     # Ensure keymapper has access to the file
+#     mode: o=rx
+#     state: hard
+#   become: true
 
-- name: Configure linux access control lists (acl) for keymapper user to have enough permissions to manage inputs
-  template:
-    src: 90-keymapper-acl.rules.j2
-    dest: "/etc/udev/rules.d/90-keymapper-acl.rules"
-    backup: true
-    mode: 0644
-  become: yes
 
-- name: Ensure keyszer.service in place for systemd to use
-  template:
-    src: keyszer.service.j2
-    dest: "/etc/systemd/system/keyszer.service"
-    backup: true
-    mode: 0644
-  become: yes
-
-- name: Ensure keyszer.service is enabled
-  ansible.builtin.systemd_service:
-    state: started
-    # Reload systemd daemon to apply changes to services.
-    daemon_reload: true
-    enabled: true
-    name: keyszer
-  become: yes
+- name: Copy Keyszer scripts
+  vars:
+    system_scripts: /home/ds13/.bookmarks/system-scripts
+  ansible.builtin.copy:
+    src: "{{ system_scripts }}/Keymappings__Keyszer_scripts/keyszer.conf"
+    dest: "{{ keyszer_config_path }}"
+    group: wheel
+    # Ensure keymapper has access to the file
+    mode: o=rx
+  become: true
+  
+# TODO: Add `yay xkblayout-state-git`
