@@ -1,0 +1,14 @@
+# TODO: Add `yay xkblayout-state-git`
+
+# Didn't get it working...
+# https://github.com/mnussbaum/ansible-yay
+# - name: Ensure xkblayout-state for layout detection is installed
+#   yay: 
+#     name: xkblayout-state-git
+#     state: present
+
+# Fails because yay requests user input. Didn't find how to install specific
+# package by url, for instance.
+# - name: Ensure xkblayout-state for layout detection is installed
+#   ansible.builtin.shell:
+#     cmd: yay xkblayout-state-git

@@ -27,4 +27,5 @@
     mode: o=rx
   become: true
   
-# TODO: Add `yay xkblayout-state-git`
+# Don't think it deserves to live as a separate role.
+- include_tasks: ensure_script_dependencies_are_met.yml
