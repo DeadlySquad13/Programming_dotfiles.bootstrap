@@ -1,0 +1,5 @@
+- name: Install Bat (on Windows)
+  community.windows.win_scoop:
+    name: bat
+  when: '"Windows" in ansible_distribution'
+

@@ -101,6 +101,10 @@
         - vivaldi
         - browser
 
+    - role: bat
+      tags:
+        - bat
+
     - role: wsl_nixos
       tags:
         - wsl_nixos
