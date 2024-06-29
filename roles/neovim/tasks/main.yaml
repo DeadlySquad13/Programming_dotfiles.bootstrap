@@ -58,13 +58,3 @@
       parameters:
         NeovimGuiPath: "{{ neovim_gui_path }}"
   when: '"Windows" in ansible_distribution'
-
-# - name: Symlink NeoVim configuration
-#   vars:
-#     mylink: "C:/Users/ds13/AppData/Local/nvim-test"
-#     mysrc: "./files"
-#   ansible.builtin.file:
-#     src: "{{ mysrc }}"
-#     dest: "{{ mylink }}"
-#     state: link
-#   
