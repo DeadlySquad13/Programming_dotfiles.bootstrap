@@ -23,6 +23,12 @@
         - scripting
         - invoke
 
+      # InfoField.
+    - role: info_field_chrono_index
+      tags:
+        - info_field_chrono_index
+
+
 - name: Set up local Unix workstation (general)
   hosts:
     - salt
@@ -138,6 +144,7 @@
     - role: scoop
       tags:
         - scoop
+
     - role: oh_my_posh
       tags:
         - powershell

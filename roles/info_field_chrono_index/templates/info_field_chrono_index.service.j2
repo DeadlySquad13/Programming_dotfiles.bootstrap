@@ -1,0 +1,12 @@
+[Unit]
+Description=Automatically process items created in InfoField__ChronoIndex or moved into it
+
+[Service]
+Type=simple
+KillMode=process
+ExecStart=/home/{{ ansible_user }}/.bookmarks/shared-scripts/InfoField__ChronoIndex/.direnv/python-3.12/bin/python3 /home/{{ ansible_user }}/.bookmarks/shared-scripts/InfoField__ChronoIndex/main.py
+Restart=on-failure
+RestartSec=120
+
+[Install]
+WantedBy=multi-user.target
