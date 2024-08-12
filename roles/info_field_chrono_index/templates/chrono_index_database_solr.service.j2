@@ -4,10 +4,12 @@ After=docker.service
 Requires=docker.service
 
 [Service]
-Type=simple
+Type=oneshot
+RemainAfterExit=yes
 KillMode=process
-ExecStart="/usr/bin/env docker compose -f /home/{{ ansible_user }}/.bookmarks/shared-projects/--personal/InfoField__/ChronoIndex__/ChronoIndex__Database/Solr/docker-compose.yml up --detach"
-ExecStop="/usr/bin/env docker compose -f /home/{{ ansible_user }}/.bookmarks/shared-projects/--personal/InfoField__/ChronoIndex__/ChronoIndex__Database/Solr/docker-compose.yml stop"
+WorkingDirectory=/home/{{ ansible_user }}/.bookmarks/shared-projects/--personal/InfoField__/ChronoIndex__/ChronoIndex__Database/Solr
+ExecStart=/usr/bin/bash -c "/home/{{ ansible_user }}/.nix-profile/bin/docker compose up --detach"
+ExecStop=/usr/bin/bash -c "/home/{{ ansible_user }}/.nix-profile/bin/docker compose stop"
 
 Restart=on-failure
 RestartSec=120
