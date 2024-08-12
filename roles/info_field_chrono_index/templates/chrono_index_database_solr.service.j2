@@ -1,0 +1,16 @@
+[Unit]
+Description=Start ChronoIndex__Database Solr for syncing local ChronoIndex across devices
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+KillMode=process
+ExecStart="/usr/bin/env docker compose -f /home/{{ ansible_user }}/.bookmarks/shared-projects/--personal/InfoField__/ChronoIndex__/ChronoIndex__Database/Solr/docker-compose.yml up --detach"
+ExecStop="/usr/bin/env docker compose -f /home/{{ ansible_user }}/.bookmarks/shared-projects/--personal/InfoField__/ChronoIndex__/ChronoIndex__Database/Solr/docker-compose.yml stop"
+
+Restart=on-failure
+RestartSec=120
+
+[Install]
+WantedBy=multi-user.target

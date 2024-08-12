@@ -1,3 +1,6 @@
 ---
 # TODO: Add once you will need it for script.
 # chrono_index_config_path: /etc/keyszer.conf
+chrono_index_services:
+  - info_field_chrono_index
+  - chrono_index_database_solr

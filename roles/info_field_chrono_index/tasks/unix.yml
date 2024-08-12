@@ -1,18 +1,18 @@
-- name: Ensure info_field_chrono_index.service in place for systemd to use
+- name: "Ensure {{ item }}.service in place for systemd to use"
   template:
-    src: info_field_chrono_index.service.j2
-    dest: "/etc/systemd/system/info_field_chrono_index.service"
+    src: "{{ item }}.service.j2"
+    dest: "/etc/systemd/system/{{ item }}.service"
     backup: true
     mode: 0644
   become: true
+  loop: "{{ chrono_index_services }}"
 
-- name: Ensure info_field_chrono_index.service is enabled
+- name: "Ensure {{ item }}.service is enabled"
   ansible.builtin.systemd_service:
     state: started
     # Reload systemd daemon to apply changes to services.
     daemon_reload: true
     enabled: true
-    name: info_field_chrono_index
+    name: "{{ item }}"
   become: true
-
-
+  loop: "{{ chrono_index_services }}"
