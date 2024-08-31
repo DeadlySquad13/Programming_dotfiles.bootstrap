@@ -1,0 +1,4 @@
+- name: Install Logseq (on Windows)
+  community.windows.win_scoop:
+    name: logseq
+  when: '"Windows" in ansible_distribution'

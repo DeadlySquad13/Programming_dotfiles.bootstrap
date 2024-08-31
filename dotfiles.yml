@@ -107,6 +107,11 @@
         - vivaldi
         - browser
 
+    - role: logseq
+      tags:
+        - logseq
+        - productivity
+
     - role: bat
       tags:
         - bat
