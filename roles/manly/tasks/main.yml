@@ -1,3 +1,5 @@
 - name: Ensure manly is installed
   community.general.pipx:
     name: manly
+    # Fork with fixed bug.
+    source: https://github.com/keegoid-nr/manly

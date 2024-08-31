@@ -11,7 +11,7 @@ vault-edit-salt .vault_pass.py ./group_vars/salt/vault:
 vault-edit-MikhailLermontov .vault_pass.py ./host_vars/MikhailLermontov/vault:
 	ANSIBLE_CONFIG=ansible.cfg ansible-vault edit --vault-password-file ./.vault_pass.py ./host_vars/MikhailLermontov/vault
 
-install: requirements.yml
+install requirements.yml:
 	ansible-galaxy install -r requirements.yml
 
 # TODO: Move to snakemake and add optional param for host.
