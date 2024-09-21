@@ -102,6 +102,11 @@
       tags:
         - samba
 
+    - role: nvidia
+      tags:
+        - nvidia
+        - drivers
+
     - role: vivaldi
       tags:
         - vivaldi
@@ -153,6 +158,12 @@
     - role: oh_my_posh
       tags:
         - powershell
+
+      # Architecuturing.
+    - role: drawio
+      tags:
+        - drawio
+        - architecuturing
 
       # Productivity.
     - role: bugwarrior

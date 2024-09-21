@@ -1,0 +1,4 @@
+- name: Install drawio (on Windows)
+  community.windows.win_scoop:
+    name: drawio
+  when: '"Windows" in ansible_distribution'
