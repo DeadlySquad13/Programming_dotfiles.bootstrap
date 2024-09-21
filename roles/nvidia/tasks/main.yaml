@@ -1,0 +1,9 @@
+- name: Install (requires manual approve because of admin priviliges) Microsoft .NetDesktopRuntimeLTS (on Windows)
+  community.windows.win_scoop:
+    name: Microsoft.NETDesktopRuntimeLTS-Install
+  when: '"Windows" in ansible_distribution'
+
+- name: Install tiny nvidia update checker (on Windows)
+  community.windows.win_scoop:
+    name: tinynvidiaupdatechecker
+  when: '"Windows" in ansible_distribution'
