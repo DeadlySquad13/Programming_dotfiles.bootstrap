@@ -1,0 +1,4 @@
+- name: Install ast-grep (on Windows)
+  community.windows.win_scoop:
+    name: ast-grep
+  when: '"Windows" in ansible_distribution'

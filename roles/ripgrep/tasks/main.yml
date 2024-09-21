@@ -1,0 +1,4 @@
+- name: Install ripgrep (on Windows)
+  community.windows.win_scoop:
+    name: ripgrep
+  when: '"Windows" in ansible_distribution'
