@@ -1,0 +1,4 @@
+dependencies:
+  - role: ripgrep
+    # For grup-far.
+  - role: ast_grep
