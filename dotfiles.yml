@@ -116,6 +116,11 @@
       tags:
         - bat
 
+    - role: zoxide
+      tags:
+        - zoxide
+        - utility
+
     - role: wsl_nixos
       tags:
         - wsl_nixos
