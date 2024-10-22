@@ -162,6 +162,12 @@
         - productivity
       when: '"Windows" not in ansible_distribution' # Taskwarrior not supported on windows.
 
+    - role: buttery_taskbar
+      tags:
+        - buttery_taskbar
+        - taskbar
+        - productivity
+
       # Pdf.
       # - Pdf Reader
     - role: sumatrapdf

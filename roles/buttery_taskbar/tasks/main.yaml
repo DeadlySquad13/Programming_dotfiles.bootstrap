@@ -1,0 +1,18 @@
+- name: Install buttery-taskbar (on Windows)
+  community.windows.win_scoop:
+    name: buttery-taskbar
+  when: '"Windows" in ansible_distribution'
+
+- name: Task schedule autostart ButteryTaskbar on boot (on Windows)
+  community.windows.win_scheduled_task:
+    name: ButteryTaskbar
+    description: Run buttery-taskbar (utility that hides Windows' taskbar) on boot
+    actions:
+        # TODO: Make path generic.
+      - path: J:\ds13\Soft\-scoop\shims\buttery-taskbar.exe
+    triggers:
+      - type: logon
+        user_id: ds13
+    username: ds13
+    run_level: highest
+    state: present
