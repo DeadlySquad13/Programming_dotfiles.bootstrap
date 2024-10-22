@@ -1,0 +1,33 @@
+- name: Install yasb (on Windows)
+  ansible.windows.win_powershell:
+      script: |
+        [CmdletBinding()]
+        param (
+            [String]
+            $PackageName
+        )
+
+        winget install --id "$PackageName" --exact
+      parameters:
+          PackageName: "AmN.yasb"
+  when: '"Windows" in ansible_distribution'
+
+# Yasb uses icons from NerdFont. JetBrainsMono is recommended in README.
+- name: Install JetBrainsMono-NF (on Windows)
+  community.windows.win_scoop:
+    name: JetBrainsMono-NF
+  when: '"Windows" in ansible_distribution'
+
+- name: Task schedule autostart yasb on boot (on Windows)
+  community.windows.win_scheduled_task:
+    name: Yasb
+    description: Run yasb (custom taskbar supporting komorebi) on boot
+    actions:
+        # TODO: Make path generic.
+      - path: C:\Users\ds13\AppData\Local\Yasb\yasb.exe
+    triggers:
+      - type: logon
+        user_id: ds13
+    username: ds13
+    run_level: highest
+    state: present

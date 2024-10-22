@@ -112,14 +112,22 @@
         - vivaldi
         - browser
 
-    - role: logseq
+    # Music.
+    - role: frescobaldi
       tags:
-        - logseq
-        - productivity
+        - frescobaldi
+        - music
 
+    # Utility.
     - role: bat
       tags:
         - bat
+        - utility
+
+    - role: zoxide
+      tags:
+        - zoxide
+        - utility
 
     - role: wsl_nixos
       tags:
@@ -127,7 +135,7 @@
         - wsl
         - nix
 
-      # Git
+    # Git.
     # - role: git
     #   tags:
     #     - git
@@ -166,12 +174,29 @@
         - architecuturing
 
       # Productivity.
+    # Productivity.
+    - role: logseq
+      tags:
+        - logseq
+        - productivity
     - role: bugwarrior
       tags:
         - bugwarrior
         - jira # TODO: Modularize it somehow?
         - productivity
       when: '"Windows" not in ansible_distribution' # Taskwarrior not supported on windows.
+
+    - role: yasb
+      tags:
+        - yasb
+        - taskbar
+        - productivity
+
+    - role: buttery_taskbar
+      tags:
+        - buttery_taskbar
+        - taskbar
+        - productivity
 
       # Pdf.
       # - Pdf Reader
