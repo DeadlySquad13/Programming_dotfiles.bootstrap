@@ -1,0 +1,4 @@
+# GitHub/GitLab syntax highlighting
+pixi.lock linguist-language=yaml
+.envrc linguist-language=bash
+

@@ -1,0 +1,60 @@
+[project]
+name = "Programming_dotfiles.bootstrap"
+version = "0.1.0"
+description = "Configure Unix workstation using Ansible"
+authors = ["DeadlySquad13 <46250621+DeadlySquad13@users.noreply.github.com>"]
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[tasks]
+#   `break-system-packages` option is set to mute ArchLinux notifications that we
+# are installing package globally (in reality we aren't, it's just pixi venvs
+# are recognized as global).
+postinstall = "pip install --no-build-isolation --no-deps --disable-pip-version-check --break-system-packages -e ."
+build = "echo test"
+
+# [system-requirements]
+# Version inside docker.
+# linux="5.4.109"
+
+[dependencies]
+python = ">=3.12"
+
+[feature.test]
+tasks = { test = "pytest" }
+# pypi-dependencies = { "Programming_dotfiles.bootstrap" = { path = "./", editable = true }, pytest = "==6.2.5", pytest-cov = "==2.12.1" }
+
+[feature.lint.tasks]
+lint-check = "flake8 src"
+
+format = "black src"
+format-check = "black --check --diff src"
+
+types-check = "mypy src"
+
+order-imports = "isort src"
+order-imports-check = "isort --check --diff src"
+
+[feature.lint.pypi-dependencies]
+flake8 = "==7.0.0"
+tox = "==3.24.3"
+mypy = "==1.9.0"
+black = "==24.3.0"
+isort = "==5.13.2"
+
+[feature.pre-commit]
+tasks = { pre-commit-check = "pre-commit run --all-files" }
+# pypi-dependencies = { "Programming_dotfiles.bootstrap" = { path = "./", editable = true }, pre-commit = "==3.7.0" }
+
+# [feature.quarto.tasks]
+# preview-docs = "quarto preview docs"
+# build-docs = "quarto render docs"
+
+# [feature.quarto.dependencies]
+# quarto = "1.4.550"
+
+[environments]
+default = []
+dev = ["test", "lint", "pre-commit"]
+# quarto = ["quarto", "jupyter",]
+# dev-quarto = ["test", "lint", "quarto", "jupyter", "pre-commit"]

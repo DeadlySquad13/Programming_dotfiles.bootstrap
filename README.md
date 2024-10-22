@@ -1,6 +1,6 @@
 # My dotfiles
 
-Configure linux workstation using Ansible.
+Configure Unix workstation using Ansible.
 
 ## Get started
 Use `./bin/dot-bootstrap` (should be executable) to install required packages for
