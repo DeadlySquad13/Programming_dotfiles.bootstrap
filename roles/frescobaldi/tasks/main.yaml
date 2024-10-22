@@ -1,0 +1,13 @@
+- name: Install frescobaldi (on Windows)
+  ansible.windows.win_powershell:
+      script: |
+        [CmdletBinding()]
+        param (
+            [String]
+            $PackageName
+        )
+
+        winget install --id "$PackageName" --exact
+      parameters:
+          PackageName: "WilbertBerendsen.Frescobaldi"
+  when: '"Windows" in ansible_distribution'

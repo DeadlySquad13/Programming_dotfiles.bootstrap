@@ -1,0 +1,4 @@
+- name: Install lilypod (on Windows)
+  community.windows.win_scoop:
+    name: lilypod
+  when: '"Windows" in ansible_distribution'

@@ -107,14 +107,17 @@
         - vivaldi
         - browser
 
-    - role: logseq
+    # Music.
+    - role: frescobaldi
       tags:
-        - logseq
-        - productivity
+        - frescobaldi
+        - music
 
+    # Utility.
     - role: bat
       tags:
         - bat
+        - utility
 
     - role: zoxide
       tags:
@@ -127,7 +130,7 @@
         - wsl
         - nix
 
-      # Git
+    # Git.
     # - role: git
     #   tags:
     #     - git
@@ -159,7 +162,11 @@
       tags:
         - powershell
 
-      # Productivity.
+    # Productivity.
+    - role: logseq
+      tags:
+        - logseq
+        - productivity
     - role: bugwarrior
       tags:
         - bugwarrior
