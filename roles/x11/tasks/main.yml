@@ -1,15 +1,23 @@
 - name: Copy symbols layout
-  vars:
-    x11_local_system_configs: /usr/local/etc/X11/
   ansible.builtin.copy:
-    src: "{{x11_local_system_configs}}/Keyboard__HdnExtended_xorgLayout/us13"
-    dest: "/usr/share/X11/xkb/symbols/us13"
+    src: "{{x11_local_system_configs}}/Keyboard__HdnExtended_xorgLayout/{{x11_layout_name}}"
+    dest: "/usr/share/X11/xkb/symbols/{{x11_layout_name}}"
   become: true
 
 - name: Copy X11 (xorg.conf.d) settings
-  vars:
-    x11_local_system_configs: /usr/local/etc/X11/
   ansible.builtin.copy:
     src: "{{x11_local_system_configs}}/xorg.conf.d"
     dest: "/etc/X11/"
   become: true
+
+- name: Copy xinit settings
+  ansible.builtin.copy:
+    src: "{{x11_local_system_configs}}/xorg.conf.d"
+    dest: "/etc/X11/"
+  become: true
+
+- name: Ensure .xinit settings are place
+  template:
+    src: .xinit.j2
+    dest: "/home/{{ansible_user}}/.xinit"
+    mode: 0554
