@@ -1,0 +1,15 @@
+- name: Copy symbols layout
+  vars:
+    x11_local_system_configs: /usr/local/etc/X11/
+  ansible.builtin.copy:
+    src: "{{x11_local_system_configs}}/Keyboard__HdnExtended_xorgLayout/us13"
+    dest: "/usr/share/X11/xkb/symbols/us13"
+  become: true
+
+- name: Copy X11 (xorg.conf.d) settings
+  vars:
+    x11_local_system_configs: /usr/local/etc/X11/
+  ansible.builtin.copy:
+    src: "{{x11_local_system_configs}}/xorg.conf.d"
+    dest: "/etc/X11/"
+  become: true

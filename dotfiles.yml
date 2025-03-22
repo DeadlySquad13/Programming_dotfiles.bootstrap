@@ -71,8 +71,14 @@
         - devops
         - docker
 
+    - role: x11
+      tags:
+        - keymappings
+        - x11
+
     - role: keyszer
       tags:
+        - keymappings
         - keymapper
         - keyszer
 
