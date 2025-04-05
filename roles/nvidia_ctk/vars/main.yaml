@@ -1,0 +1,3 @@
+---
+nvidia_ctk_config_path: /home/{{ ansible_user }}/.config/docker/daemon.json
+nvidia_container_runtime_config_path: /etc/nvidia-container-runtime/config.toml

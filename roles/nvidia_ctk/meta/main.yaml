@@ -1,0 +1,5 @@
+dependencies:
+  - role: docker
+    # TODO: Currently we have nvidia configured only for Windows, but
+    # nvidia_ctk only for ArchLinux.
+  - role: nvidia

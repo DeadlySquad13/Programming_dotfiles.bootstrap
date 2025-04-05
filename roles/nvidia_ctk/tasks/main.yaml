@@ -1,0 +1,9 @@
+- name: Ensure nvidia-container-toolkit is installed (on ArchLinux)
+  community.general.pacman:
+    name: nvidia-container-toolkit
+  become: true
+  when: ansible_facts['os_family'] == 'Archlinux'
+  # Notify even if the package is already installed (just in case it's
+  # installed but not configured or we want to reconfigure it).
+  changed_when: true
+  notify: "Configure nvidia-ctk"

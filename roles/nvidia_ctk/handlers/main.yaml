@@ -1,0 +1,45 @@
+# QUESTION: I guess these stats won't be executed at all because we've
+# registered them as handlers. They should be moved to task but not sure how to
+# streamline the execution process.
+- stat: path="{{ nvidia_ctk_config_path }}" get_md5=yes
+  register: before_ctk
+
+- name: Configure nvidia-ctk
+  ansible.builtin.shell: nvidia-ctk runtime configure --runtime=docker --config=$HOME/.config/docker/daemon.json
+  register: output
+  # In most cases it will print to stderror with notification about restart and output != 1.
+  changed_when: output.rc != 0
+  notify: "Restart docker (rootless mode)"
+
+- stat: path="{{ nvidia_ctk_config_path }}" get_md5=yes
+  register: after_ctk
+  notify: "Restart docker (rootless mode)"
+  when: "'{{before_ctk.stat.md5}}' != '{{after_ctk.stat.md5}}'"
+
+- debug: msg='nvidia-ctk is already configured'
+  when: "'{{before.stat.md5}}' == '{{after.stat.md5}}'"
+
+- name: Restart docker (rootless mode)
+  ansible.builtin.service:
+    name: docker
+    state: restarted
+    scope: user
+
+- stat: path="{{ nvidia_container_runtime_config_path }}" get_md5=yes
+  register: before
+
+- name: Configure nvidia-container-runtime
+  ansible.builtin.shell: nvidia-ctk config --set nvidia-container-cli.no-cgroups --in-place
+  become: true
+  changed_when: false # without this, as long as this tasks exits with
+                      # return code 0 this task would always be reported as changed
+
+- stat: path="{{ nvidia_container_runtime_config_path }}" get_md5=yes
+  register: after
+
+# <zotero://select/library/items/@/Etal/AnswerNvidiaNVML.2017> 'Answer to "Nvidia NVML Driver/library version mismatch'
+- debug: msg='Try running `sudo docker run --rm --runtime=nvidia --gpus all ubuntu nvidia-smi` to check. Restart computer if it shows nvml error.'
+  when: "'{{before.stat.md5}}' != '{{after.stat.md5}}'"
+
+- debug: msg='nvidia-container-runtime is already configured'
+  when: "'{{before.stat.md5}}' == '{{after.stat.md5}}'"
