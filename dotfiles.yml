@@ -90,6 +90,10 @@
         - nvidia
         - nvidia_ctk
 
+    - role: repositories
+      tags:
+        - repositories
+
 
 - name: Set up local MacOs workstation
   hosts: creamsoda

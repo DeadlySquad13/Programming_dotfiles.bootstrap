@@ -1,0 +1,8 @@
+repositories:
+  - { name: 'Bash_config', url: 'git@github.com:DeadlySquad13/Bash_config.git' }
+  - { name: 'NeoVim_config', url: git@github.com:DeadlySquad13/NeoVim_config.git }
+  - { name: 'Powershell_config', url: git@github.com:DeadlySquad13/Powershell_config.git }
+  - { name: 'Surfingkeys_config', url: git@github.com:DeadlySquad13/Surfingkeys_config.git }
+  - { name: 'Wezterm_config', url: git@github.com:DeadlySquad13/Wezterm_config.git }
+  - { name: 'Unix_dotfiles', url: git@github.com:DeadlySquad13/Unix_dotfiles.git }
+  - { name: 'Wsl2_dotfiles', url: git@github.com:DeadlySquad13/Wsl2_dotfiles.git }

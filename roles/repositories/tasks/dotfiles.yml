@@ -1,0 +1,6 @@
+- name: "Ensure item repository is cloned"
+  ansible.builtin.git:
+    repo: "{{ item.url }}"
+    dest: "~/.bookmarks/ChronoIndex/ansible-/{{ item.name }}"
+    update: false
+  loop: "{{ repositories }}"
