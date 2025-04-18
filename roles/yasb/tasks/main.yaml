@@ -1,15 +1,25 @@
-- name: Install yasb (on Windows)
-  ansible.windows.win_powershell:
-      script: |
-        [CmdletBinding()]
-        param (
-            [String]
-            $PackageName
-        )
+# TODO: Move to a separate role.
+- name: Add extra scoop bucket (on Windows)
+  community.windows.win_scoop_bucket:
+    name: extras
+  when: '"Windows" in ansible_distribution'
 
-        winget install --id "$PackageName" --exact
-      parameters:
-          PackageName: "AmN.yasb"
+- name: Install yasb (on Windows)
+  # Winget installation
+  # ansible.windows.win_powershell:
+  #     script: |
+  #       [CmdletBinding()]
+  #       param (
+  #           [String]
+  #           $PackageName
+  #       )
+
+  #       winget install --id "$PackageName" --exact
+  #     parameters:
+  #         PackageName: "AmN.yasb"
+  # Scoop installation.
+  community.windows.win_scoop:
+    name: extras/yasb
   when: '"Windows" in ansible_distribution'
 
 # Yasb uses icons from NerdFont. JetBrainsMono is recommended in README.
@@ -23,8 +33,9 @@
     name: Yasb
     description: Run yasb (custom taskbar supporting komorebi) on boot
     actions:
-        # TODO: Make path generic.
-      - path: C:\Users\ds13\AppData\Local\Yasb\yasb.exe
+      - path: "{{ shims_root }}/yasb.exe"
+      # Winget variant.
+      # - path: C:\Users\ds13\AppData\Local\Yasb\yasb.exe
     triggers:
       - type: logon
         user_id: ds13

@@ -1,0 +1,4 @@
+- name: Install ptr (Rust MSVC toolchain) (on Windows)
+  community.general.cargo:
+    name: ptr
+  when: '"Windows" in ansible_distribution'
