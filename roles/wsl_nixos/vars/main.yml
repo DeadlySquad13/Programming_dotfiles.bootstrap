@@ -1,6 +1,6 @@
 
-distributive_path: "H:\\Archive\\Installers\\Soft\\Distributives__\\nixos-wsl.tar.gz"
-installation_path: "N:\\Wsl__NixOs"
+distributive_path: "H:\\Archive\\Installers\\Soft\\Distributives__\\nixos-wsl-2405.5.4.tar.gz"
+installation_path: "P:\\devOps-\\Wsl__NixOs"
 # Either 1 or 2.
 wsl_version: 2
 # Name for your wsl distribution.

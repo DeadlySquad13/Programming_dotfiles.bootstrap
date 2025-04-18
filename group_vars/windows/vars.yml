@@ -13,6 +13,10 @@ ansible_shell_type: powershell
 # ansible_winrm_transport: basic
 # ansible_winrw_server_cert_validation: ignore
 
-configs_root: "J:/$Env:UserName/Soft/scoop-"
-global_scoop_apps_root: "J:/Soft/scoop-"
+# I prefer this way more but it doesn't work without Powershell environment.
+# configs_root: "J:/$Env:UserName/Soft/-scoop"
+# This requires that ansible_user == user that we deploy to.
+configs_root: "J:/{{ ansible_user }}/Soft/-scoop"
+shims_root: "{{ configs_root }}/shims"
+global_scoop_apps_root: "J:/Soft/-scoop"
 ...

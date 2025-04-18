@@ -1,4 +1,4 @@
-# TODO: Move to a separate role.
+# REFACTOR: Move to a separate role.
 - name: Add extra scoop bucket (on Windows)
   community.windows.win_scoop_bucket:
     name: extras
