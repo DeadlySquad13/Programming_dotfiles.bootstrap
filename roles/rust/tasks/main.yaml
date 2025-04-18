@@ -1,0 +1,4 @@
+- name: Install Rust MSVC toolchain (on Windows)
+  community.windows.win_scoop:
+    name: rustup
+  when: '"Windows" in ansible_distribution'
