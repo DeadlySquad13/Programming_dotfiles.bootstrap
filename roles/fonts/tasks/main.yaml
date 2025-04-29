@@ -5,3 +5,17 @@
       script: |
         H:/Scripts/Install-Fonts.ps1
   when: '"Windows" in ansible_distribution'
+
+- name: Install Fonts (on ArchLinux)
+  community.general.pacman:
+    name: "{{ font_package_name }}"
+  loop:
+    # Symbols for tuis, for example.
+    - ttf-nerd-fonts-symbols
+    # Additional languages.
+    # - Japanese.
+    - adobe-source-han-serif-jp-fonts
+    # - Chinese.
+    - adobe-source-han-serif-cn-fonts
+  become: true
+  when: '"Archlinux" in ansible_distribution'
