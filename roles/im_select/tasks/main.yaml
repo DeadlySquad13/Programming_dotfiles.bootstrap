@@ -1,0 +1,11 @@
+# No official bucket for a long time, unfortunately. I don't think this bucket
+# will ever be needed for something else.
+- name: Ensure bucket scoop-it is added (on Windows)
+  community.windows.win_scoop_bucket:
+    name: https://github.com/younger-1/scoop-it
+  when: '"Windows" in ansible_distribution'
+
+- name: Install im-select (on Windows)
+  community.windows.win_scoop:
+    name: scoop-it/im-select
+  when: '"Windows" in ansible_distribution'

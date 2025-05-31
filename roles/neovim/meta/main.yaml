@@ -2,3 +2,4 @@ dependencies:
   - role: ripgrep
     # For grup-far.
   - role: ast_grep
+  - role: im_select
