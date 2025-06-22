@@ -1,0 +1,12 @@
+- name: Install broot (on Windows)
+  community.windows.win_scoop:
+    name: broot
+  when: '"Windows" in ansible_distribution'
+
+- name: Add broot config (on Windows)
+  # For linux it is generated via nix.
+  ansible.builtin.copy:
+    src: "conf.hjson"
+    dest: "{{ system_configs_root }}/dystroy/broot/config/conf.hjson"
+  when: '"Windows" in ansible_distribution'
+

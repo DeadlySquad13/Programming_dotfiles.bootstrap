@@ -142,6 +142,11 @@
         - bat
         - utility
 
+    - role: broot
+      tags:
+        - broot
+        - utility
+
     - role: zoxide
       tags:
         - zoxide
