@@ -3,3 +3,13 @@
     name: bat
   when: '"Windows" in ansible_distribution'
 
+- name: Add Bat config (on Windows)
+  # For linux it is generated via nix.
+  ansible.builtin.copy:
+    dest: "{{ system_configs_root }}/bat/config"
+    content: |
+      # Set the theme.
+      --theme="gruvbox-light"
+      # vi:ft=bash
+  when: '"Windows" in ansible_distribution'
+
