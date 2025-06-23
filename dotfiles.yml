@@ -2,6 +2,11 @@
 - name: Set up local workstation (general)
   hosts: all
   roles:
+      # System
+    - role: timezone
+      tags:
+        - timezone
+
       # Text Editor.
     - role: neovim
       tags:

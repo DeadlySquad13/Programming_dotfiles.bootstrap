@@ -1,0 +1,5 @@
+# See [dual-boot timezone fix]: <zotero://select/library/items/@/SystemTimeArchWikia> 'System time - ArchWiki'
+- name: Set real time in UTC (on Windows)
+  community.windows.win_regmerge:
+    path: "{{ scripts_root }}/SetRealTimeIsUniversal.reg"
+  when: '"Windows" in ansible_distribution'
