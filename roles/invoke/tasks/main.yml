@@ -1,3 +1,29 @@
 - name: Install invoke
   community.general.pipx:
     name: invoke
+  register: result
+  ignore_errors: '"Windows" in ansible_distribution'
+
+# When pipx is installed from source that is different from found pip
+# (for example, scoop), `community.general.pipx` errors.
+- name: Install invoke (via pipx that originates from non-pip)
+  ansible.windows.win_powershell:
+      script: |
+        [CmdletBinding()]
+        param (
+            [String]
+            $PackageName
+        )
+
+        pipx install "$PackageName"
+      parameters:
+          PackageName: "invoke"
+  when: result is failed
+
+- name: Add invoke config (on Windows)
+  # For linux it is generated via nix.
+  ansible.builtin.template:
+    src: ".invoke.yaml.j2"
+    dest: "{{ ansible_user_home }}/.invoke.yaml"
+  when: '"Windows" in ansible_distribution'
+

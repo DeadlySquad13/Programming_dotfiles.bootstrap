@@ -10,6 +10,12 @@
     name: pipx
   when: ansible_facts['os_family'] == 'Darwin'
 
+- name: Install pipx via scoop (on Windows)
+  community.windows.win_scoop:
+    name: pipx
+  when: '"Windows" in ansible_distribution'
+
+  # TODO: Filter out Windows too.
 - name: Install pipx via pip
   ansible.builtin.pip:
     name: pipx

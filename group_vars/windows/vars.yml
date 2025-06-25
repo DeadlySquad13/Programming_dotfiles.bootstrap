@@ -17,7 +17,11 @@ ansible_shell_type: powershell
 # configs_root: "J:/$Env:UserName/Soft/-scoop"
 # This requires that ansible_user == user that we deploy to.
 configs_root: "J:/{{ ansible_user }}/Soft/-scoop"
-system_configs_root: "C:/Users/{{ ansible_user }}/AppData/Roaming"
+scripts_root: "H:/Scripts"
 shims_root: "{{ configs_root }}/shims"
 global_scoop_apps_root: "J:/Soft/-scoop"
+ansible_user_home: "C:/Users/{{ ansible_user }}"
+shared_root: "H:/Shared"
+shared_scripts_root: "{{ shared_root }}/_scripts"
+system_configs_root: "{{ ansible_user_home }}/AppData/Roaming"
 ...
