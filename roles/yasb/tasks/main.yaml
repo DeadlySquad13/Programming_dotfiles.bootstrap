@@ -31,6 +31,7 @@
 - name: Task schedule autostart yasb on boot (on Windows)
   community.windows.win_scheduled_task:
     name: Yasb
+    path: "{{ task_shceduler_personal_namespace_path }}"
     description: Run yasb (custom taskbar supporting komorebi) on boot
     actions:
       - path: "{{ shims_root }}/yasb.exe"
@@ -38,7 +39,8 @@
       # - path: C:\Users\ds13\AppData\Local\Yasb\yasb.exe
     triggers:
       - type: logon
-        user_id: ds13
-    username: ds13
+        user_id: "{{ ansible_user }}"
+    username: "{{ ansible_user }}"
     run_level: highest
+    enabled: true
     state: present

@@ -24,4 +24,5 @@ ansible_user_home: "C:/Users/{{ ansible_user }}"
 shared_root: "H:/Shared"
 shared_scripts_root: "{{ shared_root }}/_scripts"
 system_configs_root: "{{ ansible_user_home }}/AppData/Roaming"
+task_shceduler_personal_namespace_path: "\\DsOmega"
 ...
