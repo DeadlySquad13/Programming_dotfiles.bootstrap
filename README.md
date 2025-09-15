@@ -1,6 +1,7 @@
 # My dotfiles
 
-Configure linux workstation using Ansible.
+Configure workstations using Ansible. Has support for all major platforms
+including Linux and Windows. Also can initialize Wsl (with NixOs on it).
 
 ## Get started
 Use `./bin/dot-bootstrap` (should be executable) to install required packages for
@@ -30,34 +31,6 @@ will be ignored (and hosts too). To fix it, the easiest way is to pass it direct
 ```sh
 ANSIBLE_CONFIG=ansible.cfg ./bin/dot-bootstrap
 ```
-
-### Languages
-
-Languages are managed with [asdf](https://asdf-vm.com/#/).
-
-- Ruby
-- Golang
-- Nodejs
-- Python
-- Elixir
-- Terraform
-
-### System
-
-- fzf
-- git
-- tmux
-- vim
-- zsh
-
-### Services
-
-- redis
-
-### Packages
-
-- snap
-- apt
 
 ## Bootstrap
 
