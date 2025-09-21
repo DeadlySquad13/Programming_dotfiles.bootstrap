@@ -1,3 +1,7 @@
+# These tasks may cause issues when updating system packages
+# (xkeyboard-config) as it checks for foreign files in /usr/share/X11/xkb.
+# Check for solution: logseq://graph/Notes?block-id=68809b1f-3f36-4ccc-8cf7-ad3ad99e7ee7
+
 - name: Copy symbols layout
   ansible.builtin.copy:
     src: "{{x11_local_system_configs}}/Keyboard__HdnExtended_xorgLayout/{{x11_layout_name}}"
