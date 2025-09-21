@@ -1,0 +1,2 @@
+# Result of running `lsusb` and getting fields from ID pair: Bus 009 Device 055: ID <idVendor>:<idProduct> ergohaven k:02
+ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="feed", ATTR{idProduct}=="9918", ATTR{product}=="SC Secure KVM", TEST=="power/control", ATTR{power/control}:="on"

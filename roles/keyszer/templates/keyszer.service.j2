@@ -4,7 +4,7 @@ Description=keyszer
 [Service]
 Type=simple
 KillMode=process
-ExecStart=/home/{{ keymapper_username }}/.local/bin/keyszer --config {{ keyszer_config_path }}
+ExecStart=/home/{{ keymapper_username }}/.local/bin/keyszer --watch --config {{ keyszer_config_path }}
 Restart=on-failure
 RestartSec=3
 Environment=DISPLAY=:0

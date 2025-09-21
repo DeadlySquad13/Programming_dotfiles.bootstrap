@@ -16,12 +16,20 @@
   become: true
   become_user: "{{ keymapper_username }}"
 
+- name: Make sure devices connected via KVM-switch are not suspended (to reconnect faster)
+  template:
+    src: 10-kvm-disable-autosuspend.rules.j2
+    dest: "/etc/udev/rules.d/10-kvm-disable-autosuspend.rules"
+    backup: true
+    mode: "0644"
+  become: true
+
 - name: Configure linux access control lists (acl) for keymapper user to have enough permissions to manage inputs
   template:
     src: 90-keymapper-acl.rules.j2
     dest: "/etc/udev/rules.d/90-keymapper-acl.rules"
     backup: true
-    mode: 0644
+    mode: "0644"
   become: true
 
 - name: Ensure keyszer.service in place for systemd to use
@@ -29,7 +37,7 @@
     src: keyszer.service.j2
     dest: "/etc/systemd/system/keyszer.service"
     backup: true
-    mode: 0644
+    mode: "0644"
   become: true
 
 - name: Ensure keyszer.service is enabled
@@ -40,5 +48,3 @@
     enabled: true
     name: keyszer
   become: true
-
-
