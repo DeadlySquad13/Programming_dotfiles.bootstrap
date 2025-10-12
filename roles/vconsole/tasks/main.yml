@@ -1,0 +1,18 @@
+# Requires 'rsync' on both host and target.
+# Also needs 'sshpass' installed if deploying localhost->localhost, see
+# this issue: https://github.com/ansible-collections/ansible.posix/issues/89
+- name: Copy symbols layout to system location
+  ansible.posix.synchronize:
+    src: "{{ vconsole_local_system_configs }}/{{ vconsole_layout_project_name }}"
+    dest: "{{ vconsole_system_configs }}"
+    rsync_opts:
+      - "--exclude=.git"
+  delegate_to: localhost
+  become: true
+
+- name: Ensure layout is set in vconsole.conf
+  template:
+    src: vconsole.conf.j2
+    dest: "/etc/vconsole.conf"
+    backup: true
+  become: true

@@ -1,0 +1,6 @@
+---
+vconsole_layout_name: hdn
+vconsole_layout_project_name: Keyboard__HdnExtended_linuxConsoleLayout
+vconsole_local_system_configs: "{{local_system_configs}}"
+vconsole_system_configs: "/usr/share/kbd/keymaps"
+
