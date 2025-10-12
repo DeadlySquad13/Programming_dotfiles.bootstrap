@@ -1,3 +1,3 @@
 ---
 x11_layout_name: us13
-x11_local_system_configs: /usr/local/etc/X11/
+x11_local_system_configs: "{{local_system_configs}}/X11/"
