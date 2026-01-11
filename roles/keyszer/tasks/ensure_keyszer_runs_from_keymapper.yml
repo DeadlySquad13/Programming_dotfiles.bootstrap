@@ -1,8 +1,17 @@
+# We rely on it for permissions in acl rules.
+# See: logseq://graph/Notes?block-id=69638b1c-9b18-4b5a-b8e4-2e735e1532db
+- name: Ensure uinput group is present on the system
+  ansible.builtin.group:
+    name: uinput
+    state: present
+  become: true
+
 - name: Create keymapper user for keyszer
   ansible.builtin.user:
     name: "{{ keymapper_username }}"
     comment: User for managing keyboard-related services (e.g. keyszer)
     create_home: true
+    groups: "keymapper,input,uinput"
   become: true
 
 - name: Install keyszer
@@ -20,15 +29,17 @@
   template:
     src: 10-kvm-disable-autosuspend.rules.j2
     dest: "/etc/udev/rules.d/10-kvm-disable-autosuspend.rules"
-    backup: true
+    # Rules are just piled up in the directory and applied sequentially causing unnecessary overlap.
+    backup: false
     mode: "0644"
   become: true
 
 - name: Configure linux access control lists (acl) for keymapper user to have enough permissions to manage inputs
   template:
     src: 90-keymapper-acl.rules.j2
+    # Rules are just piled up in the directory and applied sequentially causing unnecessary overlap.
     dest: "/etc/udev/rules.d/90-keymapper-acl.rules"
-    backup: true
+    backup: false
     mode: "0644"
   become: true
 
