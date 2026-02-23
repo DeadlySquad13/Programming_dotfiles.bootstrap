@@ -7,7 +7,16 @@
   #
   # `creates=<mountpoint>` option allows to skip command if zpool aready exists
   #   at specied mountpoint.
-  command: zpool create -O compression=lz4 z{{ ansible_nodename }} -o ashift=12 -O xattr=sa -O atime=off -O recordsize=64K /dev/sdd4 creates=/z{{ ansible_nodename }}
+  # Command syntax inspired by:
+  # [Source][@/Frock81/AnswerHowCreate.2019]|[Zotero][z@/Frock81/AnswerHowCreate.2019], also
+  # see [[ExtendingZfsPool]].
+  command: >-
+    zpool create
+    -O compression=lz4
+    z{{ ansible_nodename }}
+    -o ashift=12 -O xattr=sa -O atime=off -O recordsize=64K
+    {{ zfs_pool_vdevs | join(' ') }}
+    creates=/z{{ ansible_nodename }}
   become: true
 
 - name: Create a new filesystems on pool
@@ -83,3 +92,7 @@
 
 
 # TODO: Add info_field_chrono_index as a part of this role.
+
+# ## References
+# [@/Frock81/AnswerHowCreate.2019]: <https://stackoverflow.com/a/59218148> 'Answer to "How Do i Create a Zfs Filesystem/Zpool Using Ansible Using Zfs-Linux"'
+# [z@/Frock81/AnswerHowCreate.2019]: <zotero://select/items/@/Frock81/AnswerHowCreate.2019> 'Select in Zotero: Answer to "How Do i Create a Zfs Filesystem/Zpool Using Ansible Using Zfs-Linux"'

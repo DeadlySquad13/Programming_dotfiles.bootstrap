@@ -1,0 +1,5 @@
+# For full list see: https://github.com/g2g/ansible-role-taskd/blob/master/defaults/main.yml
+# Organizations to be created
+zfs_pool_vdevs:
+  - /dev/sdd4
+  - /dev/nvme1n1
