@@ -1,0 +1,18 @@
+[Unit]
+Description=Start WebScrapBook Server for archiving web resources
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+KillMode=process
+WorkingDirectory=/home/{{ ansible_user }}/.bookmarks/shared-projects/--personal/WebScrapBookServer
+ExecStart=/usr/bin/bash -c "/home/{{ ansible_user }}/.nix-profile/bin/docker compose up --detach"
+ExecStop=/usr/bin/bash -c "/home/{{ ansible_user }}/.nix-profile/bin/docker compose stop"
+
+Restart=on-failure
+RestartSec=120
+
+[Install]
+WantedBy=multi-user.target

@@ -33,6 +33,10 @@
       tags:
         - info_field_chrono_index
 
+    - role: web_scrap_book_server
+      tags:
+        - web_scrap_book_server
+
 
 - name: Set up local Unix workstation (general)
   hosts:
