@@ -80,6 +80,11 @@
         - devops
         - docker
 
+    - role: vconsole
+      tags:
+        - keymappings
+        - vconsole
+
     - role: x11
       tags:
         - keymappings
