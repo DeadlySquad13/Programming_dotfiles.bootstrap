@@ -47,6 +47,11 @@
       tags:
         - knowledge
         - manly
+    - role: taskwarrior_notifications
+      tags:
+        - taskwarrior_notifications
+        - taskwarrior
+        - notifications
 
 
 - name: Prepare local Unix workstation for nix setup

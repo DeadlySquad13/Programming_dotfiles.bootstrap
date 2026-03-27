@@ -1,2 +1,4 @@
 ---
+ansible_user_home: "/home/{{ ansible_user }}"
+shared_scripts_root: "{{ ansible_user_home }}/.bookmarks/shared-scripts"
 ...

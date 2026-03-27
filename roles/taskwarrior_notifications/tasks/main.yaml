@@ -1,0 +1,40 @@
+- name: Install cron package pacman (on ArchLinux)
+  community.general.pacman:
+    name: cronie
+  become: true
+  when: ansible_facts['os_family'] == 'Archlinux'
+
+- name: Ensure cronie service is enabled and started
+  ansible.builtin.service:
+    name: cronie
+    state: started
+  become: true
+
+- name: Ensure necessary "PATH" parts are set on top of crontab
+  ansible.builtin.cron:
+    name: PATH
+    env: true
+    job: "{{ ansible_user_home }}/.nix-profile/bin:/usr/local/bin:/usr/bin/"
+
+# Reference: https://github.com/DeadlySquad13/Unix_dotfiles/blob/8dc75c2f8cd6810a99e0ba3460732cdd93fa35eb/modules/home/apps/productivity/taskwarrior/taskwarrior-nautical.nix#L70-L75
+- name: Ensure necessary "NAUTICAL_CORE_PATH" env is set
+  ansible.builtin.cron:
+    name: NAUTICAL_CORE_PATH
+    env: true
+    job: "~/.task" # Tilde is resolved in a script.
+    insertafter: PATH # STYLE: Not necessary but feels more natural this way.
+
+- name: Ensure notificatinos are shown on our desktop
+  ansible.builtin.cron:
+    name: DISPLAY
+    env: true
+    job: ":0"
+    insertafter: PATH # STYLE: Not necessary but feels more natural this way.
+
+- name: Ensure taskwarrior tasks are sent as notifications every hour
+  vars:
+    project_path: "{{ shared_scripts_root }}/TaskwarriorNotifications"
+  ansible.builtin.cron:
+    name: "Notificate Taskwarrior"
+    minute: "*/10"
+    job: "{{ project_path }}/.venv/bin/python {{project_path}}/taskwarrior_notifications.py"
