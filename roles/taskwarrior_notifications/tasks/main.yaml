@@ -7,6 +7,7 @@
 - name: Ensure cronie service is enabled and started
   ansible.builtin.service:
     name: cronie
+    enabled: true
     state: started
   become: true
 
@@ -37,4 +38,4 @@
   ansible.builtin.cron:
     name: "Notificate Taskwarrior"
     minute: "*/10"
-    job: "{{ project_path }}/.venv/bin/python {{project_path}}/taskwarrior_notifications.py"
+    job: "{{ project_path }}/.venv/bin/python {{project_path}}/taskwarrior_notifications.py --tags='health'"
