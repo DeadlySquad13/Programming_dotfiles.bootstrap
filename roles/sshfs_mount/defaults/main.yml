@@ -1,0 +1,21 @@
+---
+sshfs_remote_user: "user"
+sshfs_remote_host: "remote"
+sshfs_remote_path: "/mnt/data"
+sshfs_local_path: "{{ ansible_env.HOME }}/share/data"
+
+sshfs_options:
+  - "_netdev"
+  - "user"
+  - "delay_connect"
+  - "reconnect"
+  - "ServerAliveInterval=15"
+  - "dir_cache=yes"
+  - "idmap=user"
+  - "follow_symlinks"
+  - "transform_symlinks"
+  - "compression=yes"
+
+sshfs_template_src: sshfs-mount.service.j2
+
+sshfs_systemd_user_dir: "{{ ansible_env.XDG_CONFIG_HOME | default(ansible_env.HOME + '/.config') }}/systemd/user"

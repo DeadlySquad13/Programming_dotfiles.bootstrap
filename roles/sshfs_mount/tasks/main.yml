@@ -1,0 +1,65 @@
+---
+# - name: Ensure systemd user directory exists
+#   ansible.builtin.file:
+#     path: "{{ sshfs_systemd_user_dir }}"
+#     state: directory
+#     mode: '0755'
+
+# - name: Ensure local mount point exists
+#   ansible.builtin.file:
+#     path: "{{ sshfs_local_path }}"
+#     state: directory
+#     mode: '0755'
+
+# Otherwise would throw an error 'Systemd Mount Where= Setting Doesn't Match Unit Name'.
+# [Source][@/Don_crissti/AnswerSystemdMount.2017]|[Zotero][z@/Don_crissti/AnswerSystemdMount.2017]
+- name: Generate systemd-escaped mount unit name
+  ansible.builtin.command:
+    cmd: "systemd-escape -p --suffix=mount {{ sshfs_local_path | quote }}"
+  register: sshfs_mount_unit_name
+  changed_when: false
+  check_mode: false
+
+- name: Set mount unit filename
+  ansible.builtin.set_fact:
+    sshfs_mount_unit_file: "{{ sshfs_mount_unit_name.stdout }}"
+
+- name: Debug mount unit name
+  ansible.builtin.debug:
+    msg: "Mount unit will be named: {{ sshfs_mount_unit_file }}"
+    verbosity: 1
+
+- name: Generate systemd mount unit file
+  ansible.builtin.template:
+    src: "{{ sshfs_template_src }}"
+    dest: "{{ sshfs_systemd_user_dir }}/{{ sshfs_mount_unit_file }}"
+    mode: '0644'
+
+- name: Reload systemd user daemon
+  ansible.builtin.systemd:
+    daemon_reload: true
+    scope: user
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ ansible_facts['user_uid'] }}"
+
+- name: Enable and start SSHFS mount (user service)
+  ansible.builtin.systemd:
+    name: "{{ sshfs_mount_unit_file }}"
+    enabled: true
+    state: started
+    scope: user
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ ansible_facts['user_uid'] }}"
+  register: sshfs_mount_result
+  ignore_errors: true
+
+- name: Show mount status on failure
+  ansible.builtin.debug:
+    msg: >
+      SSHFS mount failed to start. Check 'journalctl --user -u {{ sshfs_mount_unit_file }}'
+      and verify SSH access to {{ sshfs_remote_user }}@{{ sshfs_remote_host }}.
+  when: sshfs_mount_result.failed | default(false)
+
+# References:
+# [@/Don_crissti/AnswerSystemdMount.2017]: <https://unix.stackexchange.com/a/345518> 'Answer to "Systemd Mount Fails. Where= Setting Doesn't Match Unit Name"'
+# [z@/Don_crissti/AnswerSystemdMount.2017]: <zotero://select/items/@/Don_crissti/AnswerSystemdMount.2017> 'Select in Zotero: Answer to "Systemd Mount Fails. Where= Setting Doesn't Match Unit Name"'

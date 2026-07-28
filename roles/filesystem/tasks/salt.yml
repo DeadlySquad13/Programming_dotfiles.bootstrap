@@ -93,6 +93,16 @@
 
 # TODO: Add info_field_chrono_index as a part of this role.
 
+
+- name: Configure SSHFS mount for work connection
+  ansible.builtin.include_role:
+    name: sshfs_mount
+  vars:
+    sshfs_remote_user: "apakalo"
+    sshfs_remote_host: "creamsoda"
+    sshfs_remote_path: "/Users/apakalo/Projects"
+    sshfs_local_path: "/z{{ ansible_facts['nodename'] }}/shared-/@creamsoda/Projects_remote"
+
 # ## References
 # [@/Frock81/AnswerHowCreate.2019]: <https://stackoverflow.com/a/59218148> 'Answer to "How Do i Create a Zfs Filesystem/Zpool Using Ansible Using Zfs-Linux"'
 # [z@/Frock81/AnswerHowCreate.2019]: <zotero://select/items/@/Frock81/AnswerHowCreate.2019> 'Select in Zotero: Answer to "How Do i Create a Zfs Filesystem/Zpool Using Ansible Using Zfs-Linux"'

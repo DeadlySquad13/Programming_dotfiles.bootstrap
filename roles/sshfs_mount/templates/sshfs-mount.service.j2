@@ -1,0 +1,8 @@
+[Mount]
+What={{ sshfs_remote_user }}@{{ sshfs_remote_host }}:{{ sshfs_remote_path }}
+Where={{ sshfs_local_path }}
+Type=fuse.sshfs
+Options={% for option in sshfs_options %}{{ option }}{% if not loop.last %},{% endif %}{% endfor %}
+
+[Install]
+WantedBy=default.target

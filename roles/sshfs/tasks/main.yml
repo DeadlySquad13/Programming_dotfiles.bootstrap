@@ -1,0 +1,45 @@
+- name: Check if sshfs is installed
+  ansible.builtin.command:
+    cmd: which sshfs
+  register: sshfs_check
+  changed_when: false
+  failed_when: false
+  check_mode: false
+
+- name: Process missing sshfs package
+  when:
+    - sshfs_check.rc != 0
+  block:
+    - name: Delegate sshfs package installation to Unix_dotfiles (Unix)
+      ansible.builtin.fail:
+        msg: "Package ssfs should be installed via Unix_dotfiles"
+      when:
+        - '"Windows" not in ansible_facts["distribution"]'
+
+    - name: Install sshfs package (Windows)
+      ansible.builtin.fail:
+        msg: "Not Implemented: package ssfs should be installed via scoop role"
+      when:
+        - '"Windows" in ansible_facts["distribution"]'
+
+- name: Ensure sshfs binary is on the right path on Nix installations
+  when:
+    - '"Windows" not in ansible_facts["distribution"]'
+    - 'sshfs_check.rc == 0'
+  block:
+    - name: Set sshfs binary path
+      ansible.builtin.set_fact:
+        sshfs_binary: "{{ sshfs_check.stdout }}"
+
+    - name: Debug sshfs binary path
+      ansible.builtin.debug:
+        msg: "SshFs binary found at: {{ sshfs_binary }}"
+        verbosity: 1
+
+    - name: Create symlink for Nix-installed sshfs (requires sudo)
+      ansible.builtin.file:
+        src: "{{ sshfs_binary }}"
+        dest: "/usr/local/bin/sshfs"
+        state: link
+      become: true
+      when: "'nix' in sshfs_binary"
