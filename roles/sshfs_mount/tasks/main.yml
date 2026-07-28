@@ -1,15 +1,15 @@
 ---
-# - name: Ensure systemd user directory exists
-#   ansible.builtin.file:
-#     path: "{{ sshfs_systemd_user_dir }}"
-#     state: directory
-#     mode: '0755'
+- name: Ensure systemd user directory exists
+  ansible.builtin.file:
+    path: "{{ sshfs_systemd_user_dir }}"
+    state: directory
+    mode: '0755'
 
-# - name: Ensure local mount point exists
-#   ansible.builtin.file:
-#     path: "{{ sshfs_local_path }}"
-#     state: directory
-#     mode: '0755'
+- name: Ensure local mount point exists
+  ansible.builtin.file:
+    path: "{{ sshfs_local_path }}"
+    state: directory
+    mode: '0755'
 
 # Otherwise would throw an error 'Systemd Mount Where= Setting Doesn't Match Unit Name'.
 # [Source][@/Don_crissti/AnswerSystemdMount.2017]|[Zotero][z@/Don_crissti/AnswerSystemdMount.2017]
