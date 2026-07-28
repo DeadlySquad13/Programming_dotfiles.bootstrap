@@ -13,22 +13,22 @@
   command: >-
     zpool create
     -O compression=lz4
-    z{{ ansible_nodename }}
+    z{{ ansible_facts["nodename"] }}
     -o ashift=12 -O xattr=sa -O atime=off -O recordsize=64K
     {{ zfs_pool_vdevs | join(' ') }}
-    creates=/z{{ ansible_nodename }}
+    creates=/z{{ ansible_facts["nodename"] }}
   become: true
 
 - name: Create a new filesystems on pool
   community.general.zfs:
     # These are actually two filesystems: `zsalt` and `zsalt/local-`.
-    name: z{{ ansible_nodename }}/local-
+    name: z{{ ansible_facts["nodename"] }}/local-
     state: present
   become: true
 
 - name: Create a new filesystem on pool and mount it to /nix
   community.general.zfs:
-    name: z{{ ansible_nodename }}/local-/nix
+    name: z{{ ansible_facts["nodename"] }}/local-/nix
     state: present
     extra_zfs_properties:
       mountpoint: /nix
@@ -37,19 +37,19 @@
 # Variable data
 - name: Prepare variable data folders (var- namespace)
   ansible.builtin.file:
-    path: z{{ ansible_nodename }}/local-/var-
+    path: z{{ ansible_facts["nodename"] }}/local-/var-
     state: directory
 
 - name: Create a new filesystem on pool for local variable data
   community.general.zfs:
-    name: z{{ ansible_nodename }}/local-/var-
+    name: z{{ ansible_facts["nodename"] }}/local-/var-
     state: present
   become: true
 
 # Mounted it because docker doesn't like links.
 - name: Create a new filesystems on pool for local variable data categories
   community.general.zfs:
-    name: z{{ ansible_nodename }}/local-/var-/{{ item.name }}
+    name: z{{ ansible_facts["nodename"] }}/local-/var-/{{ item.name }}
     state: present
     extra_zfs_properties:
       # TODO: remove user hardcode.
@@ -77,7 +77,7 @@
 # Using stow?
 # - name: Make sure variable data subfolders are soft linked
 #   ansible.builtin.file:
-#     src: '/z{{ ansible_nodename }}/local-/var-/{{ item.src }}'
+#     src: '/z{{ ansible_facts["nodename"] }}/local-/var-/{{ item.src }}'
 #     # TODO: Remove user hardcode.
 #     # ? It shouldn't be a user related but node related?
 #     dest: '/home/ds13/{{ item.dest }}'
