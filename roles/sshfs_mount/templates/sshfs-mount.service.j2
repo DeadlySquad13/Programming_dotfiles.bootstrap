@@ -9,9 +9,9 @@ Type=simple
 Environment={{ key }}={{ value }}{% endfor %}
 {% endif %}
 
-ExecStart=/usr/bin/sshfs -f {{ sshfs_remote_user }}@{{ sshfs_remote_host }}:{{ sshfs_remote_path }} {{ sshfs_local_path }} -o {% for option in _sshfs_combined_options %}{{ option }}{% if not loop.last %},{% endif %}{% endfor %}
+ExecStart=/usr/bin/env sshfs -f {{ sshfs_remote_user }}@{{ sshfs_remote_host }}:{{ sshfs_remote_path }} {{ sshfs_local_path }} -o {% for option in _sshfs_combined_options %}{{ option }}{% if not loop.last %},{% endif %}{% endfor %}
 
-ExecStop=/usr/bin/fusermount -u {{ sshfs_local_path }}
+ExecStop=/usr/bin/env fusermount -u {{ sshfs_local_path }}
 Restart=on-failure
 RestartSec=5
 
