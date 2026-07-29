@@ -1,8 +1,19 @@
-[Mount]
-What={{ sshfs_remote_user }}@{{ sshfs_remote_host }}:{{ sshfs_remote_path }}
-Where={{ sshfs_local_path }}
-Type=fuse.sshfs
-Options={% for option in sshfs_options %}{{ option }}{% if not loop.last %},{% endif %}{% endfor %}
+[Unit]
+Description=SSHFS mount for {{ sshfs_remote_host }}
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+{% if sshfs_env | length > 0 %}{% for key, value in sshfs_env.items() %}
+Environment={{ key }}={{ value }}{% endfor %}
+{% endif %}
+
+ExecStart=/usr/bin/sshfs -f {{ sshfs_remote_user }}@{{ sshfs_remote_host }}:{{ sshfs_remote_path }} {{ sshfs_local_path }} -o {% for option in _sshfs_combined_options %}{{ option }}{% if not loop.last %},{% endif %}{% endfor %}
+
+ExecStop=/usr/bin/fusermount -u {{ sshfs_local_path }}
+Restart=on-failure
+RestartSec=5
 
 [Install]
 WantedBy=default.target

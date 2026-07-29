@@ -37,8 +37,9 @@
 # Variable data
 - name: Prepare variable data folders (var- namespace)
   ansible.builtin.file:
-    path: z{{ ansible_facts["nodename"] }}/local-/var-
+    path: "z{{ ansible_facts['nodename'] }}/local-/var-"
     state: directory
+    mode: '0755'
 
 - name: Create a new filesystem on pool for local variable data
   community.general.zfs:
@@ -102,6 +103,9 @@
     sshfs_remote_host: "creamsoda"
     sshfs_remote_path: "/Users/apakalo/Projects"
     sshfs_local_path: "/z{{ ansible_facts['nodename'] }}/shared-/@creamsoda/Projects_remote"
+    sshfs_extra_options:
+      - "IdentitiesOnly=yes"
+      - "IdentityFile=/home/ds13/.ssh/Work__apakalo@creamsoda"
 
 # ## References
 # [@/Frock81/AnswerHowCreate.2019]: <https://stackoverflow.com/a/59218148> 'Answer to "How Do i Create a Zfs Filesystem/Zpool Using Ansible Using Zfs-Linux"'

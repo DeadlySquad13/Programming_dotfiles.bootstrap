@@ -15,6 +15,12 @@ sshfs_options:
   - "follow_symlinks"
   - "transform_symlinks"
   - "compression=yes"
+  - "allow_other"
+  - "default_permissions"
+
+sshfs_extra_options: []
+
+sshfs_env: {}
 
 sshfs_template_src: sshfs-mount.service.j2
 
