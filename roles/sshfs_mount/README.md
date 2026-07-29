@@ -15,6 +15,15 @@ Mainly used as a part of filesystem role on specific hosts (such as @salt).
     sshfs_local_path: "/z{{ ansible_facts['nodename'] }}/shared-/@creamsoda/Projects_remote"
 ```
 
+## Redeploying
+
+It's not 100% idempotent if you already have a working mount at the
+`sshfs_local_path`. So you may need to:
+
+- `sct u x <serviceName>` if service is working
+- `fusermount -u <sshfs_local_path>` if only mount is working withou system
+service.
+
 ## Authentication
 
 The service unit injects `SSH_AUTH_SOCK` from Ansible's environment so the SSH agent
